@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+	<!-- 게시글 번호에 따른 댓글 조회 쿼리문 -->
+	<select id="re_list" parameterType="int" resultType="dto.ReplyDTO">
+		select * from reply
+		where rv_num = #{rv_num} order by re_num 
+	</select>
+	
+	<!-- 댓글 조회수 쿼리문 -->
+	<select id="re_count" resultType="int">
+		select count(*)
+		from reply
+	</select>
+	
+	<!-- 댓글 insert 쿼리문 -->
+	<insert id="re_insert" parameterType ="dto.ReplyDTO">
+		insert into reply(re_num, mem_id, rv_num, re_content, re_regdate)
+		values(reply_seq.nextval, #{mem_id}, #{rv_num}, #{re_content}, sysdate)
+	</insert>
+	
+	<!-- 댓글 delete 쿼리문 -->
+	<delete id="re_delete" parameterType ="int">
+		delete from reply
+		where re_num = #{re_num}
+	</delete>
+
+	
+	<!-- 댓글 update 쿼리문 -->
+	<update id="re_update" parameterType="dto.ReplyDTO">
+		update reply set re_content=#{re_content}, re_regdate=sysdate
+		where re_num=#{re_num}
+	</update>
+	
+</mapper>

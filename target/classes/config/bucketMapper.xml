@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bucket">
+
+	<resultMap type="dto.BucketDTO" id="bucket_list_file"
+		autoMapping="false">
+		<result column="bk_num" property="bk_num" />
+		<result column="bk_title" property="bk_title" />
+		<result column="bk_content" property="bk_content" />
+		<result column="bk_pop_cnt" property="bk_pop_cnt" />
+		<result column="bk_group" property="bk_group" />
+		<collection property="pic_list" javaType="java.util.List"
+			ofType="dto.Bucket_picDTO" autoMapping="false">
+			<result column="bk" property="bk_num" />
+			<result column="bp_num" property="bp_num" />
+			<result column="bp_file" property="bp_file" />
+		</collection>
+	</resultMap>
+
+	<!-- 최초 버킷 리스트 조회 -->
+	<select id="list" resultMap="bucket_list_file">
+	<![CDATA[
+		select b.* from
+		(select rownum as rw, a.*
+		from(select b.bk_num, b.bk_title,
+		b.bk_content, b.bk_pop_cnt, b.bk_group, p.bp_file
+		from bucket b,bucket_pic p
+		where b.bk_num = p.bk_num and bp_num = 1)a)b
+		where rw >= 1 and rw <= 8
+	]]>
+	</select>
+	<!-- 버킷 리스트 모든 레코드 수 -->
+	<select id="count" resultType="int">
+		select count(*) from bucket
+	</select>
+	<!-- 검색 결과 레코드 수 -->
+	<select id="bcount" parameterType="java.util.HashMap"
+		resultType="int">
+		select count(*) from bucket
+		<choose>
+			<when test="category != null and category != ''">
+			where bk_group = #{category}
+			and bk_title like '%' || #{keyword} || '%'
+			</when>
+			<otherwise>
+			where bk_title like '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 최초 버킷 리스트 조회 -->
+	<select id="bkList" parameterType="java.util.HashMap"
+		resultMap="bucket_list_file">
+		select b.* from
+		(select rownum as rw, a.*
+		from(select b.bk_num,
+		b.bk_title,
+		b.bk_content, b.bk_pop_cnt, b.bk_group, p.bp_file
+		from
+		bucket b,bucket_pic p
+		where b.bk_num = p.bk_num and bp_num = 1
+		<if test="category != null and category != ''">
+			and bk_group = #{category}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			and bk_title like '%' || #{keyword} || '%'
+		</if>
+		)a)b
+	<![CDATA[	
+		where rw >= #{startRow} and rw <= #{endRow}
+	]]>
+	</select>
+
+	<!-- 모달 상세 조회 (해당 버킷리스트) -->
+	<select id="bk_view" parameterType="int"
+		resultType="dto.BucketDTO">
+		select * from bucket where bk_num = #{bk_num}
+	</select>
+
+	<!-- 모달 상세 조회 (버킷리스트 사진 파일) -->
+	<select id="bk_view_pic" parameterType="int"
+		resultType="dto.Bucket_picDTO">
+		select * from bucket_pic
+		where bk_num=#{bk_num}
+		order by
+		bp_num
+	</select>
+
+	<!-- 모달 상세 해쉬태그 조회 -->
+	<select id="hashtag" parameterType="int"
+		resultType="dto.HashTagDTO">
+		select * from hashtag where bk_num= #{bk_num}
+	</select>
+
+	<!-- 버킷리스트 add추가시 인기수 추가 -->
+	<update id="bk_pop_cnt" parameterType="int">
+		update bucket set
+		bk_pop_cnt = bk_pop_cnt + 1
+		where bk_num=#{bk_num}
+	</update>
+
+	<!-- 버킷리스트 레코드 삽입 -->
+	<insert id="bk_insert" parameterType="dto.BucketDTO">
+		insert into bucket
+		values(bucket_SEQ.nextval, #{bk_title},
+		#{bk_content}, 0,#{bk_group})
+		<selectKey keyProperty="bk_num" resultType="int"
+			order="AFTER">
+			SELECT MAX(bk_num) FROM bucket
+		</selectKey>
+	</insert>
+	<!-- 버킷리스트에 대한 해쉬태그 삽입 -->
+	<insert id="ht_insert" parameterType="dto.HashTagDTO">
+		insert
+		into hashtag
+		values(#{bk_num}, #{ht_name})
+	</insert>
+	<!-- 버킷리스트에 대한 사진 삽입 -->
+	<insert id="pic_insert" parameterType="dto.BucketDTO">
+		<foreach collection="pic_list" item="item" index="index"
+			open="insert all " separator=" " close="select * from dual">
+			into bucket_pic
+			values(#{bk_num}, #{index}+1 , #{item.bp_file})
+		</foreach>
+	</insert>
+	<!-- 해당 버킷리스트에 대한 해쉬태그 삭제 -->
+	<delete id="ht_delete" parameterType="int">
+		delete from hashtag where
+		bk_num = #{bk_num}
+	</delete>
+	<!-- 해당 버킷리스트에 대한 사진 삭제 -->
+	<delete id="pic_delete" parameterType="int">
+		delete from bucket_pic
+		where bk_num = #{bk_num}
+	</delete>
+	<!-- 해당 버킷리스트 삭제 -->
+	<delete id="bk_delete" parameterType="int">
+		delete from bucket where
+		bk_num = #{bk_num}
+	</delete>
+
+	<select id="pic_find" parameterType="int"
+		resultType="dto.Bucket_picDTO">
+		select * from bucket_pic where bk_num = #{bk_num}
+	</select>
+	<!-- 버킷리스트 해당 사진 위치 찾기 -->
+	<select id="pic_file_find" parameterType="dto.Bucket_picDTO"
+		resultType="String">
+		select bp_file from bucket_pic
+		where bk_num=#{bk_num} and
+		bp_num=#{bp_num}
+	</select>
+	<!-- 버킷리스트 해당 사진 삭제 -->
+	<delete id="pic_file_del" parameterType="dto.Bucket_picDTO">
+		delete from bucket_pic
+		where bk_num=#{bk_num} and bp_num=#{bp_num}
+	</delete>
+	<!-- 해당 버킷리스트 수정 -->
+	<update id="bk_update" parameterType="dto.BucketDTO">
+		update bucket set
+		bk_title =
+		#{bk_title},
+		bk_group = #{bk_group},
+		bk_content = #{bk_content}
+		where
+		bk_num=#{bk_num}
+	</update>
+	
+	<!-- 버킷리스트 추가 시  인기수 증가  -->
+	<update id="bkPopCnt" parameterType="int">
+		update bucket set bk_pop_cnt = bk_pop_cnt + 1 
+		where bk_num = #{bk_num}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 

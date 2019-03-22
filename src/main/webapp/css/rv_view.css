@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+/* 답변버튼 hover적용 */
+#butDiv{
+	margin-top:30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* 댓글 수정 삭제 버튼 정렬 */
+#btnSpan{
+	display:inline-block;
+	float:right;
+}
+
+
+/* 삭제버튼 */
+#delcheck{
+	text-align: right;
+		
+}
+
+/* 게시판 테이블 */
+#viewTable {
+	width: 1200px;
+	border-spacing: 1px;
+	text-align: left;
+	line-height: 1.5;
+	border-top: 1px solid rgb(99, 99, 99);
+	margin: 20px 10px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 100px;
+	margin-bottom:50px;
+}
+
+/* 테이블 Title부분 스타일 */
+#viewTable th {
+	width:600px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;
+}
+
+/* 테이블 내용 부분 스타일 */
+#viewTable td {
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 목록버튼 */
+#listTd{
+	text-align:right;
+	background: #efefef;
+}
+
+/* 이름 부분 */
+#tdName{
+
+}
+
+/* 작성일, 조회수 정렬 */
+#tableDate{
+	text-align: right;
+}
+
+/* 게시판 내용부분 크기 */
+#cont_space{
+	height:400px;
+}
+
+/* 좋아요부분 */
+#likeTd{
+	width:;
+}
+
+/* 수정부분 */
+#updateTd{
+	width:50px;
+	text-align:right;
+}
+
+/*삭제부분*/
+#delTd{
+	text-align:right;
+	width:50px;
+}
+
+/*댓글쓰는 전체 부분*/
+.box-body{
+	width:1100px;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+/*댓글수 부분*/
+.box-header{
+	width:1200px;
+	margin:auto;
+}
+
+#newReplyWriter, #newReplyText{
+	width : 800px;
+	height:70px;
+
+}
+
+
+/* 댓글부분 전체 */
+#replyDiv{
+	width:1200px;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+/* 댓글쓰기부분 div */
+#reply_listDiv{
+	
+}
+
+/* 댓글 부분 전체다*/
+#replyAll{
+	width : 1300px;
+	margin:auto;
+	margin-bottom:10px;
+	background-color:#eaeaea;
+}
+
+#content-area .cminput {
+    margin: 14px 0 0;
+    padding: 0;
+    width: 1000px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#table_size{
+	width: 1000px;
+}
+
+
+#replyTable{
+	width : 1100px;
+	margin-left: auto;
+	margin-right:auto;	
+}
+
+/*댓글 경계선*/
+.time_sub{
+	border-bottom : dotted 1px;
+}
+
+/*댓글 쓰기 input 버튼*/ 
+#newReplyWriter, #newReplyText{
+	width : 100%;
+}
+
+/*댓글 등록, 수정 버튼*/
+#replyAddBtn, #replyUpdateBtn{
+	padding:10px;
+	width : 65px;
+	height:65px;
+	
+}
+
+/*수정취소 버튼 정렬*/
+#replyUpdateCancel{
+	text-align:right;
+}
+
+/*댓글 수정 input 테이블*/
+#replyTableUpdate{
+	width:1100px;
+}
+
+
+/*수정 등록버튼 정렬*/
+#button_div{
+	text-align:center;
+
+}
+
+
+#registerBtn{
+	width:80px;
+}
+
+

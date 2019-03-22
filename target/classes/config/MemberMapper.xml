@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+   
+   <resultMap type="dto.MemberDTO" id="member_list_file"
+		autoMapping="false">
+		<result column="mem_id" property="mem_id" />
+		<result column="mem_pw" property="mem_pw" />
+		<result column="mem_name" property="mem_name" />
+		<result column="mem_phone" property="mem_phone" />
+		<result column="mem_mail" property="mem_mail" />
+		<result column="mem_pic" property="mem_pic" />
+		<result column="mem_regdate" property="mem_regdate" />
+	</resultMap>
+	
+	
+	<!-- 아이디 체크  -->
+	<select id="idcheck" parameterType="String" resultType="Integer">
+		select count(*) from member where mem_id=#{mem_id}
+	</select>
+   
+   <!-- 네임세션 -->
+   	<select id="namesession" parameterType="String" resultType="String">
+   		select mem_name from member where mem_id=#{mem_id,jdbcType=VARCHAR}
+   	</select>
+   	
+   	<!-- 사진 세션 -->
+   	<select id="picsession" parameterType="String" resultType="String">
+   		select mem_pic from member where mem_id=#{mem_id,jdbcType=VARCHAR}
+   	</select>
+   
+   <!-- 로그인 체크 -->
+    <select id="loginchk" parameterType="dto.MemberDTO" resultType="Integer">
+      select count(*) from member where mem_id=#{mem_id} and mem_pw=#{mem_pw}
+   </select>
+   
+   <!-- 회원 조회  -->
+   <select id="memberdata" parameterType="String" resultType="dto.MemberDTO">
+   	select * from member where mem_id=#{mem_id}
+   </select>
+   
+   	<!-- 회원전체조회 -->
+   	<select id="memlistAll" resultType="dto.MemberDTO">
+   	select mem_id, mem_name, mem_phone, mem_mail, mem_regdate from member
+   	order by mem_regdate desc
+   	</select> 
+   	
+   	<!-- 이메일 체크 -->
+   	<select id="memcodechk" parameterType="dto.MemberDTO" resultType="Integer">
+   		select count(*) from member where mem_id=#{mem_id} and mem_code=#{mem_code}
+   	</select>
+   	
+   <!-- 회원등록 -->
+      <insert id="signup" parameterType="dto.MemberDTO">
+         insert into member
+         values (#{mem_id}, #{mem_pw}, #{mem_name}, #{mem_phone}, #{mem_mail}, #{mem_pic,jdbcType=VARCHAR}, SYSDATE)
+      </insert> 
+      
+      <!-- 회원수정 -->
+      <update id="update" parameterType="String">
+      	update member set mem_pw=#{mem_pw}, mem_phone=#{mem_phone}, mem_mail=#{mem_mail}, mem_pic=#{mem_pic,jdbcType=VARCHAR} where mem_id=#{mem_id} 
+      </update>
+   
+   <!-- 회원삭제 -->
+   	<delete id="delete">
+   		delete from member where mem_id=#{mem_id}
+   	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 

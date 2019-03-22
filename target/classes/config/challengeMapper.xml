@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="challenge">
+
+<resultMap type="dto.BucketDTO" id="bucket_file"
+		autoMapping="false">
+		<result column="bk_num" property="bk_num" />
+		<result column="bk_title" property="bk_title" />
+		<result column="bk_content" property="bk_content" />
+		<result column="bk_pop_cnt" property="bk_pop_cnt" />
+		<result column="bk_group" property="bk_group" />
+		<association property="pic_dto" javaType="dto.Bucket_picDTO" autoMapping="false">
+			<result column="bk" property="bk_num" />
+			<result column="bp_num" property="bp_num" />
+			<result column="bp_file" property="bp_file" />
+		</association>
+	</resultMap>
+
+	<select id="cmem_id" parameterType="dto.MemberDTO"
+		resultType="String">
+		select * from challenge where mem_id=#{mem_id}
+	</select>
+
+	<select id="list" parameterType="java.util.HashMap"
+		resultType="dto.ChallengeDTO">
+			<![CDATA[
+		select b.bk_num from
+		(select rownum as rw, a.*
+		from(select bk_num from
+		challenge
+		where mem_id = #{mem_id}
+		and c_state=0)a)b
+		where rw >= #{startRow} and rw <= #{endRow}
+	]]>
+	</select>
+	
+	<select id="mem_bk_challenge" parameterType="int" resultMap="bucket_file">
+		 select b.bk_num, b.bk_title,
+		b.bk_content, b.bk_pop_cnt, b.bk_group, p.bp_file
+		from bucket b,bucket_pic p
+		where b.bk_num = p.bk_num and b.bk_num=#{bk_num}
+        and bp_num =1
+	</select>
+
+<select id="cnt" parameterType="String" resultType="int">
+	select count(*) from challenge where mem_id = #{sessionId}
+	and c_state=0
+</select>
+
+<select id="succes_cnt" parameterType="String" resultType="int">
+	select count(*) from challenge where mem_id = #{sessionId}
+	and c_state=1
+</select>
+
+<update id="cUpdate" parameterType="java.util.HashMap">
+	update challenge 
+	set c_state = 1
+	where mem_id=#{mem_id} 
+	and
+	bk_num=#{bk_num}
+</update>
+
+<delete id="cDelete" parameterType="java.util.HashMap">
+	delete from challenge
+	where mem_id=#{mem_id}
+	and
+	bk_num=#{bk_num}
+</delete>
+
+	<select id="successlist" parameterType="java.util.HashMap"
+		resultType="dto.ChallengeDTO">
+			<![CDATA[
+		select b.bk_num from
+		(select rownum as rw, a.*
+		from(select bk_num from
+		challenge
+		where mem_id = #{mem_id}
+		and c_state=1)a)b
+		where rw >= #{startRow} and rw <= #{endRow}
+	]]>
+	</select>
+
+ 	<delete id="reDelete" parameterType="java.util.HashMap">
+	delete from challenge
+	where mem_id=#{mem_id}
+	and
+	bk_num=#{bk_num}
+	</delete>
+	<!-- 마이버킷리스트 추가  -->
+	<insert id="cInsert" parameterType="dto.ChallengeDTO">
+	insert into challenge 
+	values(c_num_SEQ.nextval , #{bk_num}, #{mem_id}, 0, sysdate)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 

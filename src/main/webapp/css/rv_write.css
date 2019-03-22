@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* /* 폰트 받아오기 */
+/* @font-face {
+	font-family: 'seoul-hangang-jang-m';
+	src: url('../font/seoulhangangjangm.eot');
+	src: url('../font/seoulhangangjangm.eot?#iefix')
+		format('embedded-opentype'), url('../font/seoulhangangjangm.woff2')
+		format('woff2'), url('../font/seoulhangangjangm.woff') format('woff'),
+		url('../font/seoulhangangjangm.ttf') format('truetype'),
+		url('../font/seoulhangangjangm.svg#seoul-hangang-jang-m')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+} */
+
+/* 모든 전체 폰트 적용하기 */
+/* * {
+	font-family: seoul-hangang-jang-m
+} */ */
+
+/* 처음 뜨는 그림 이미지 */
+#mainimg{
+	width:1200px;
+	margin-top:30px;
+	margin-bottom:30px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* qna 제목 크기*/
+#qna{
+	width:100px;
+	margin-top:50px;
+}
+
+/* 게시판 테이블 */
+#type4 {
+	width: 1200px;
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:17px;
+}
+
+/* 테이블 첫번째컬럼 스타일 */
+#type4 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;
+}
+
+/* 테이블 내용 부분 스타일 */
+#type4_td {
+    border-bottom: 1px solid #ccc;
+}
+
+/* 제목, 이름 입력칸 textbox */
+#title_write, #name_write{
+	border:0;
+	width:500px;
+	margin-left:5px;
+}
+
+/* 내용부분 길이 조절 */
+#cont_write {
+	width: 1200px;
+	height: 600px;
+}
+
+#sub{
+	padding:10px;
+}
+
+/* 버튼들 크기 조정 */
+#listbtn_on, #listbtn_out, #regibtn_on, #cancelbtn_on, #cancelbtn_out{
+	width:75px;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+/* 등록버튼 div로 묶기 */
+.registercheck{
+	width:75px;
+	height:30px;
+
+}
+
+/* 취소버튼 div로 묶기 */
+.cancelcheck{
+	width:75px;
+	height:30px;
+	float:right;
+}

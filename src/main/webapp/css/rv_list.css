@@ -1,0 +1,110 @@
+/* 전체 마진 없애기 */
+*{
+	padding: 0;
+	margin: 0;
+}
+
+/* 페이지 번호까지 포함하는 전체 div 설정 */
+#reviewContent{
+	width:1400px;
+	height:1300px;
+	padding:100px;
+	margin:auto;
+}
+
+/* 글쓰기버튼 부분 div */
+#reviewWrite{
+	width:1130px;
+	text-align:right;
+}
+
+
+/* 테이블만 포함하는 div설정 */
+#reviewDiv{
+	width:1100px;
+	height:1100px;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+/* 테이블 설정 */
+table{
+	width:1050px;
+	height:100px;
+	float :left;
+	border-top:3px solid black;
+	padding : 0px;
+	margin : 20px;
+	margin-bottom:35px;
+	border-collapse: collapse;
+	
+	
+	
+}
+
+
+td, tr{
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+
+}
+ 
+/* title부분 글씨 굵게해주기 */
+#titleTd{
+	font-weight:bold;
+	border-top:2px solid black;
+	border-bottom:1px dotted black;
+	text-align : left;
+	
+}
+
+/* 테이블 작성일부분 정렬 */
+#dateTd{
+	text-align:right;
+	
+}
+
+/* 테이블 조회수 부분 정렬 */
+#countTd{
+	text-align:right;
+	border-bottom:3px solid black;
+}
+
+#writerTd{
+	border-top : solid gray 1px;
+	border-bottom : solid gray 1px;
+	text-align : left;
+}
+
+#likeTd{
+	text-align : left;
+	border-bottom : solid 3px black;
+}
+/* 테이블 이미지 부분 크기 조정 */
+#imgTd{
+	width:200px;
+	border-bottom : solid black 3px;
+
+}
+
+
+.imgDiv{  
+	padding-top : 10px;
+	padding-bottom : 10px;
+	width : 180px;
+	line-height : 180px;
+
+}
+
+.imgDiv img{  
+	padding : 10px;
+	vertical-align : middle;
+}
+.bg-orange {background:#d8622b;color:#fff!important;}
+body{background:#f4f4f4;}
+img{width:100%;max-height:560px;}
+a {color:#696969;}
+
