@@ -13,7 +13,7 @@ public interface ReviewService {
 	public int countProcess();
 	public List<ReviewDTO> listProcess(PageDTO pv);
 	public ReviewDTO contentProcess(int rv_num);
-	public void insertProcess(ReviewDTO dto);
+	public int insertProcess(ReviewDTO dto);
 	public void replyInsertProcess(ReplyDTO dto);
 	public List<ReplyDTO> replyListProcess(int re_num);
 	public ReviewDTO updateSelectProcess(int rv_num);
@@ -21,5 +21,5 @@ public interface ReviewService {
 	public void deleteProcess(int rv_num, HttpServletRequest request);
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto);
-	
+	public void rvPicInsertProcess(ReviewDTO dto);
 }// end interface

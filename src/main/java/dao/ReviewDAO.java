@@ -11,7 +11,7 @@ public interface ReviewDAO {
 	public List<ReviewDTO> list(PageDTO pv);
 	public void readCount(int num);
 	public ReviewDTO content(int rv_num);
-	public void save(ReviewDTO dto);
+	public int save(ReviewDTO dto);
 	public void replyInsertMethod(ReplyDTO dto);
 	public List<ReplyDTO> replyListMethod(int re_num);
 	public ReviewDTO updateNum(int rv_num);
@@ -20,6 +20,7 @@ public interface ReviewDAO {
 	public void delete(int rv_num);
 	public void replyDelete(int re_num);
 	public void replyUpdateMethod(ReplyDTO rdto);
+	public void rvPicInsertMethod(ReviewDTO dto);
 	
 	
 }// end interface

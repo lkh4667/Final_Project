@@ -7,41 +7,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/rv_write.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <title>Insert title here</title>
-
-<script type="text/javascript">
-$(document).ready(function () {
-	$('#btnSave').on('click',function(){
-		  $('[name=rv_content]').val(
-					$('[name=rv_content]').val().replace(/\n/gi, '<br/>')); 		
-		  
-		if($('#title_write').val()==""){
-				alert("제목을 입력하세요")
-				return false;
-			}
-		  
-		  if($('#cont_write').val()==""){
-				alert("내용을 입력하세요")
-				return false;
-			}
-		  
-		  $('#frm').submit();
-	});	
-	
-/* function check(){
-	var str = document.getElementById('title_write');
-	var blank_pattern =  /[\s]/g;
-	if(blank_pattern.test(str.value)==true){
-		alert('공백은 사용할 수 없습니다.');
-		return false;
-	} */
-
-	
-
-});
-</script>
+<script type="text/javascript"
+	src="static/sdk/nhn-se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+ -->
 </head>
 <body>
 
@@ -94,4 +74,20 @@ $(document).ready(function () {
 
 	</form>
 </body>
+<script type="text/javascript" src="js/regReview.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#btnSave').on('click',function(){
+		obj.getById["cont_write"].exec("UPDATE_CONTENTS_FIELD",[]);
+		 $('[name=rv_content]').val($('[name=rv_content]').val().replace(/\n/gi, '<br/>')); 		
+		  
+		if($('#title_write').val()==""){
+				alert("제목을 입력하세요")
+				return false;
+			}
+		 
+		  $('#frm').submit();
+	});	
+});
+</script>
 </html>

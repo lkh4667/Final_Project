@@ -40,8 +40,8 @@ public class ReviewDaoImp implements ReviewDAO {
 	}
 
 	@Override
-	public void save(ReviewDTO dto) {
-		sqlSession.insert("review.save",dto);
+	public int save(ReviewDTO dto) {
+		return sqlSession.insert("review.save",dto);
 	}
 
 	@Override
@@ -83,6 +83,11 @@ public class ReviewDaoImp implements ReviewDAO {
 	@Override
 	public void replyUpdateMethod(ReplyDTO rdto) {
 		sqlSession.update("reply.re_update",rdto);
+	}
+
+	@Override
+	public void rvPicInsertMethod(ReviewDTO dto) {
+		sqlSession.insert("review.rv_pic_insert", dto);
 	}
 
 	

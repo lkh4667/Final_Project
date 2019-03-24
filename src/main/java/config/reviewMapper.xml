@@ -10,16 +10,34 @@
 		select count(*)
 		from review
 	</select>
-
+	
+	<resultMap type="dto.ReviewDTO" id="reivew_list_file"
+		autoMapping="false">
+		<result column="rv_num" property="rv_num" />
+		<result column="mem_id" property="mem_id" />
+		<result column="rv_title" property="rv_title" />
+		<result column="rv_content" property="rv_content" />
+		<result column="rv_count" property="rv_count" />
+		<result column="rv_regdate" property="rv_regdate" />
+		<collection property="rv_pic_list" javaType="java.util.List"
+			ofType="dto.Review_picDTO" autoMapping="false">
+			<result column="rv" property="rv_num" />
+			<result column="rp_num" property="rp_num" />
+			<result column="rp_file" property="rp_file" />
+		</collection>
+	</resultMap>
+	
 	<!-- 게시글 정렬(최근 글이 위로 올라오도록) -->
-	<select id="rv_list" parameterType="dto.PageDTO" resultType="dto.ReviewDTO">
+	<select id="rv_list" parameterType="dto.PageDTO" resultMap="reivew_list_file">
 	<![CDATA[
-        select b.*
+		select b.*
 		from (select rownum as rm, a.*
-		from (select * 
-		from review
-		order by rv_num desc)a )b
+		from (select r.*, p.rp_file 
+		from review r, review_pic p
+        where r.rv_num = p.rv_num
+        and p.rp_num = 1)a )b
 		where b.rm>=#{startRow} and b.rm<=#{endRow}
+        order by b.rv_num desc
 	]]>
 	</select>
 	
@@ -37,10 +55,13 @@
 	</select>
 	
 	<!-- 글 등록부분 -->
-	<select id="save" parameterType="dto.ReviewDTO">
+	<insert id="save" parameterType="dto.ReviewDTO">
 		insert into review (rv_num, mem_id, rv_title, rv_content, rv_count, rv_regdate)
 		values(review_SEQ.nextval, #{mem_id}, #{rv_title}, #{rv_content}, 0, sysdate)
-	</select>
+		<selectKey keyProperty="rv_num" resultType="int" order="AFTER">
+			SELECT MAX(rv_num) FROM review
+		</selectKey>
+	</insert>
 	
 	<!-- 글 수정부분 -->
 	<update id="update" parameterType="dto.ReviewDTO" >
@@ -54,6 +75,13 @@
 		where rv_num=#{rv_num}
 	</delete>
 	
-	
+	<!-- 리뷰에 대한 사진 삽입 -->
+	<insert id="rv_pic_insert" parameterType="dto.ReviewDTO">
+		<foreach collection="rv_pic_list" item="item" index="index"
+			open="insert all " separator=" " close="select * from dual">
+			into review_pic
+			values(#{rv_num}, #{item.rp_file},#{index}+1 )
+		</foreach>
+	</insert>
 
 </mapper>

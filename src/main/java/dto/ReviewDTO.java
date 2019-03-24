@@ -12,6 +12,7 @@ public class ReviewDTO {
 	private String upload, ip;
 	private MultipartFile filename;
 	private List<ReplyDTO> rv_list;
+	private List<Review_picDTO> rv_pic_list;
 	
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
@@ -103,6 +104,14 @@ public class ReviewDTO {
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public List<Review_picDTO> getRv_pic_list() {
+		return rv_pic_list;
+	}
+
+	public void setRv_pic_list(List<Review_picDTO> rv_pic_list) {
+		this.rv_pic_list = rv_pic_list;
 	}
 	
 	

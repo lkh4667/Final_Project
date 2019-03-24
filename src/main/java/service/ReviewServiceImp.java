@@ -38,8 +38,8 @@ public class ReviewServiceImp implements ReviewService{
 	}
 
 	@Override
-	public void insertProcess(ReviewDTO dto) {
-		dao.save(dto);
+	public int insertProcess(ReviewDTO dto) {
+		return dao.save(dto);
 	}
 
 	@Override
@@ -124,6 +124,11 @@ public class ReviewServiceImp implements ReviewService{
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto) {
 		dao.replyUpdateMethod(rdto);
 		return dao.replyListMethod(rdto.getRe_num());
+	}
+
+	@Override
+	public void rvPicInsertProcess(ReviewDTO dto) {
+		dao.rvPicInsertMethod(dto);
 	}
 
 	

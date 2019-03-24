@@ -3,6 +3,10 @@
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.PageDTO;
 import dto.ReplyDTO;
 import dto.ReviewDTO;
+import dto.Review_picDTO;
 import service.ReviewService;
-import service.ReviewServiceImp;
 
 //http://localhost:8090/mybucket/rv_list.do
 
@@ -32,7 +35,7 @@ public class BoardPageController {
 	private String path;
 	private PageDTO pdto;
 	private int currentPage;
-
+	private List<String> arr = new ArrayList<String>();
 	public BoardPageController() {
 		
 	}// end BoardPageController()
@@ -96,7 +99,12 @@ public class BoardPageController {
 	@RequestMapping(value = "/rv_writeEnd.do", method = {RequestMethod.POST, RequestMethod.GET})
 	// 파일과 ip주소를 받아오려고 HttpServletRequest를 받아온다
 	public String writeProMethod(ReviewDTO dto, HttpServletRequest request) {
-		MultipartFile file = dto.getFilename();
+		System.out.println("rv_writeEnd start !!!!!!!!!!!");
+		System.out.println("파일 리스트 !!");
+		for (String str : arr) {
+			System.out.println(str);
+		}
+		/*MultipartFile file = dto.getFilename();
 		if (!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
 			
@@ -120,8 +128,8 @@ public class BoardPageController {
 			dto.setUpload(random + "_" + fileName);
 		}
 			dto.setIp(request.getRemoteAddr());
-			
-			service.insertProcess(dto);
+		*/	
+		service.insertProcess(dto);
 		return "redirect:/rv_list.do";
 		}// end writeProMethod()
 
@@ -130,7 +138,27 @@ public class BoardPageController {
 	@RequestMapping("/rv_insert.do")
 	public ModelAndView insertProcess(ReviewDTO dto) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("rv_insert start !!!!!!!!!!!");
+		System.out.println("파일 리스트 !!");
+		System.out.println(dto.getMem_id());
+		System.out.println(dto.getRv_title());
+		System.out.println(dto.getRv_content());
+		System.out.println("rv_insert 리스트 사이즈==================> " + arr.size());
+
 		service.insertProcess(dto);
+		System.out.println("맥스 rv_num=========> " + dto.getRv_num());
+		List<Review_picDTO> alist = new ArrayList<Review_picDTO>();
+		if (arr != null) {
+			for (String str : arr) {
+				Review_picDTO pdto = new Review_picDTO();
+				pdto.setRv_num(dto.getRv_num());
+				pdto.setRp_file(str);
+				alist.add(pdto);
+			}
+		}
+		dto.setRv_pic_list(alist);
+		service.rvPicInsertProcess(dto);
+		arr.clear();
 		mav.setViewName("redirect:/rv_list.do");
 		return mav;
 	}
@@ -202,4 +230,44 @@ public class BoardPageController {
 			return mav;
 		}// end deleteProcess
 	
+		 // 다중파일업로드
+	    @RequestMapping(value = "/file_uploader_html5.do",
+	                  method = RequestMethod.POST)
+	    @ResponseBody
+	    public String multiplePhotoUpload(HttpServletRequest request) {
+	        // 파일정보
+	        StringBuffer sb = new StringBuffer();
+	        try {
+	            // 파일명을 받는다 - 일반 원본파일명
+	            String oldName = request.getHeader("file-name");
+	            // 파일 기본경로 _ 상세경로
+	            String filePath = "C:/temp/reviewImg/";
+	            String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")
+	                          .format(System.currentTimeMillis()))
+	                          .append(UUID.randomUUID().toString())
+	                          .append(oldName.substring(oldName.lastIndexOf("."))).toString();
+	            
+	            arr.add(saveName);
+	            System.out.println("파일 리스트 사이즈 =============> " + arr.size());
+
+	            InputStream is = request.getInputStream();
+	            OutputStream os = new FileOutputStream(filePath + saveName);
+	            int numRead;
+	            byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+	            while ((numRead = is.read(b, 0, b.length)) != -1) {
+	                os.write(b, 0, numRead);
+	            }
+	            os.flush();
+	            os.close();
+	            // 정보 출력
+	            sb = new StringBuffer();
+	            sb.append("&bNewLine=true")
+	              .append("&sFileName=").append(oldName)
+	              .append("&sFileURL=").append("/reviewImg/")
+	        .append(saveName);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return sb.toString();
+	    }
 }// end BoardPageController

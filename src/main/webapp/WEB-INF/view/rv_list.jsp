@@ -38,7 +38,9 @@
 					<tr>
 						<td id = "imgTd" rowspan="3" >
 							<div class="imgDiv" >
-								<img src="images/img1.jpg"/>
+							<c:forEach var="pic" items="${dto.rv_pic_list}">
+								<img src="/reviewImg/${pic.rp_file}"/>
+							</c:forEach>	
 							</div>
 						</td>
 						<td id="titleTd" colspan="2"><a href = "rv_view.do?rv_num=${dto.rv_num}&currentPage=${pv.currentPage}">제목 : ${dto.rv_title}</a>
