@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/flex-box.css">
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -56,7 +57,7 @@
 	-moz-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
-	background-color: rgba(186, 232, 2, 0.7);
+	background-color: #51575d85;
 	padding: 40% 30px !important;
 }
 
@@ -186,86 +187,6 @@
 	</div>
 	<jsp:include page="bk_pop_modal.jsp" />
 </body>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			// 버킷리스트 선택 이벤트
-			$('.pop-view').on('click', function() {
-				var category =$(this).prev().prev().prev().text();
-				alert(category);
-				
-				$.ajax({
-					type : 'POST',
-					url : 'popularGp.do',
-					data : 'bk_group=' + category,
-					dataType : 'json',
-					success : function(res) {
-						
-					alert(res.length);
- 					 	var resultHtml = "";
-						var div = "";
-						 $.each(res, function(entryIndex, entry) {
-								if (entryIndex == 0) {
-													div += "<li data-target='#demo' data-slide-to='"
-															+ entryIndex
-															+ "' class='active'></li>";
-													resultHtml += "<div class='carousel-item active' style='height: 100%;' >";
-												} else {
-													div += "<li data-target='#demo' data-slide-to='"
-															+ entryIndex + "'></li>"
-													resultHtml += "<div class='carousel-item'>";
-												}
-											 	resultHtml += "<img src='/bucket_img/"
-														+ entry.pic_dto.bp_file
-														+ "' height='100%' width='100%'>"; 
-														
-												/* 
-													 	<div class="col-md-6">
-														<div class="lib-row lib-header"
-															style="font-weight: bold; font-size: 1.5em">
-															<div class="lib-header-seperator"></div>
-															<p id="view_category" style="padding-top: 1rem;">category
-															<p>
-															<div class="lib-header-seperator"></div>
-														</div>
-														<hr />
-														<div class="lib-row lib-header"
-															style="font-weight: bold; font-size: 2em">
-															<div class="lib-header-seperator" style="margin-bottom: 1rem;">
-																<p id="view_title" style="margin-bottom: 0px;">Example
-																	title</p>
-															</div>
-															<div class="lib-header-seperator">
-																<p id="view_hashtag"
-																	style="margin-bottom: 0px; font-size: 1em;">#hashTag,
-																	#hashTag, #hashTag
-																<p>
-															</div>
-														</div>
-														<hr />
-														<div class="lib-row lib-desc" style="overflow-y: scroll ">
-															<p style="width: 100%; height: 62vh; font-size: 1.5em;">
-																<strong id="bk_content" name="bk_content" style="font-size: 1.5em;">Lorem
-																	ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum
-																	dolor Lorem ipsum dolor Lorem ipsum dolor</strong>
-															</p>
-														</div>
-													</div>  */
-												
-												resultHtml += "<h1>"+entryIndex+"</h1>";
-												resultHtml += "</div>";
-
-						});
-						 
-							$("#demo-slide").html(div);
-							$("#img-slide").html(resultHtml);  
-						$("#myPopModal").modal("show");
-					}
-				/* 
-				$("#myPopModal").modal("show"); */
-			});
-			});	
-		});	
-			
-	</script>
-
+<script type="text/javascript" src="js/popularList.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
 </html>

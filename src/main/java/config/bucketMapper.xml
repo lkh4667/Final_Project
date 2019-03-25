@@ -204,7 +204,7 @@
 				from bucket b,bucket_pic p
 				where b.bk_num = p.bk_num and bp_num =1
 				and bk_group = #{bk_group})a)b
-				where rw >= 1 and rw <= 8
+				where rw >= 1 and rw <= 7
 				order by b.bk_pop_cnt desc
 		]]>
 	

@@ -104,7 +104,7 @@
 
 
 
-	<definition name="popular" extends="bk_main">
+	<definition name="popular" extends="bk_sub">
 		<put-attribute name="title" value="Spring Menu2 Example" />
 		<put-attribute name="body"
 			value="/WEB-INF/view/popular.jsp" />

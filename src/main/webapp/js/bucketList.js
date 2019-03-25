@@ -133,7 +133,7 @@ function bucketModalShow(bk_num) {
 										}
 										resultHtml += "<img src='/bucket_img/"
 												+ entry.bp_file
-												+ "' height='100%' width='100%'>";
+												+ "' height='100%' width='100% auto'>";
 										resultHtml += "</div>";
 
 									});

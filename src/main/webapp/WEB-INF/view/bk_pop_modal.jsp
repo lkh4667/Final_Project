@@ -65,8 +65,6 @@ span.subject {
 	margin-bottom: 40px;
 	overflow-y: hidden;
 	height: 100%;
-	
-	
 }
 
 .modal-content {
@@ -139,38 +137,82 @@ body {
 .no-padding {
 	padding: 0;
 }
-
 </style>
 </head>
 <body>
 	<!-- The Modal -->
-	<div class="modal fade" id="myPopModal" role="dialog"
+	<div class="modal fade" id="myModal" role="dialog"
 		aria-labelledby="myFullsizeModalLabel">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="height: 110%">
 			<div class="modal-content">
 
 				<!-- Modal body -->
-				<div class="modal-body" style="margin-left: 30px;">
+				<div class="modal-body" style="margin-top: 20px; margin-left: 30px;">
 					<div class="row box-shadow" style="width: 100%;">
 						<div class="col-md-6" style="padding-left: 0;">
-						<div id="demo" class="carousel slide" data-ride="carousel" style="width: 205%; height: 106%;">
-						 <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    					<span class="carousel-control-prev-icon"></span>
-  						</a>
-  						<a class="carousel-control-next" href="#demo" data-slide="next">
-    					<span class="carousel-control-next-icon"></span>
-  						</a>
-  
-								 <ul class="carousel-indicators ul" id="demo-slide" style="width:70%;">
-								  </ul>
+							<div id="demo" class="carousel slide" data-ride="carousel"
+								style="height: 100%;">
+								<a class="carousel-control-prev" href="#demo" data-slide="prev">
+									<span class="carousel-control-prev-icon"></span>
+								</a> <a class="carousel-control-next" href="#demo" data-slide="next">
+									<span class="carousel-control-next-icon"></span>
+								</a>
 
-							  <!--  The slideshow -->
-							  <div class="carousel-inner img" id="img-slide" style="background-color:red; height: 100%;">
-							  </div>
+								<ul class="carousel-indicators ul" id="demo-slide"
+									style="width: 70%;">
+								</ul>
+
+								<!--  The slideshow -->
+								<div class="carousel-inner img" id="img-slide"
+									style="height: 100%;"></div>
+							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="lib-row lib-header"
+								style="font-weight: bold; font-size: 1.5em">
+								<div class="lib-header-seperator"></div>
+								<p id="view_category" style="padding-top: 1rem;">category
+								<p>
+								<div class="lib-header-seperator"></div>
+							</div>
+							<hr />
+							<div class="lib-row lib-header"
+								style="font-weight: bold; font-size: 2em">
+								<div class="lib-header-seperator" style="margin-bottom: 1rem;">
+									<p id="view_title" style="margin-bottom: 0px;">Example
+										title</p>
+								</div>
+								<div class="lib-header-seperator">
+									<p id="view_hashtag"
+										style="margin-bottom: 0px; font-size: 1em;">#hashTag,
+										#hashTag, #hashTag
+									<p>
+								</div>
+							</div>
+							<hr />
+							<div class="lib-row lib-desc" style="overflow-y: scroll">
+								<p style="width: 100%; height: 62vh; font-size: 1.5em;">
+									<strong id="bk_content" name="bk_content"
+										style="font-size: 1.5em;">Lorem ipsum dolor Lorem
+										ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum
+										dolor Lorem ipsum dolor</strong>
+								</p>
+							</div>
+
+							<div class="modal-footer" style="float: right;">
+								<button type="button" class="btn btn-success"
+									data-dismiss="modal"
+									style="width: 60pt; height: 30pt; border: 2px solid #28a745; border-radius: 30px; font-size: 1.3em;">
+									<strong>ADD</strong>
+								</button>
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal"
+									style="width: 60pt; height: 30pt; border: 2px solid #dc3545; border-radius: 30px; font-size: 1.3em;">
+									<strong>Close</strong>
+								</button>
+							</div>
 						</div>
-					
-						<input type="hidden" id="bk_num" name="bk_num" value=""/>
+						<input type="hidden" id="bk_num" name="bk_num" value="" />
 						<!-- Modal footer -->
 					</div>
 				</div>
@@ -178,10 +220,38 @@ body {
 		</div>
 
 	</div>
-
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".btn-success").on('click',function(){
+			var sessionUID = '<%=session.getAttribute("id")%>';
+			if (sessionUID != 'null') {
+				
+				 var bk_num = $("#bk_num").val();
+				
+				$.ajax({
+					type : 'POST',
+					url : 'bkAdd.do',
+					data : 'bk_num=' + bk_num,
+					dataType : 'json',
+
+					success : function(res) {
+						if (res == 0) {
+							alert("추가되었습니다");
+						} else if (res == 1) {
+							alert("로그인해주세요");
+						} else {
+							alert("이미추가되었습니다");
+						}
+
+					}
+				});
+				return false;
+			}else{
+				alert('로그인 해주세요');
+				return false;
+			}
+		});
 	});
 </script>
 </html>

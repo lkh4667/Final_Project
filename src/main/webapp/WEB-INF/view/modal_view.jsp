@@ -63,7 +63,6 @@ span.subject {
 	margin: auto;
 	margin-top: 40px;
 	margin-bottom: 40px;
-	overflow-y: hidden;
 	height: 100%;
 }
 
@@ -137,13 +136,14 @@ body {
 .no-padding {
 	padding: 0;
 }
+
 </style>
 </head>
 <body>
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal" role="dialog"
 		aria-labelledby="myFullsizeModalLabel">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" >
 			<div class="modal-content">
 
 				<!-- Modal body -->
