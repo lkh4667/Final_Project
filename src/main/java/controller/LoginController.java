@@ -43,7 +43,7 @@ public class LoginController {
 		this.path = path;
 	}
 
-	@RequestMapping("/loginPro.do")    //·Î±×ÀÎÆäÀÌÁö·Î ÀÌµ¿
+	@RequestMapping("/loginPro.do")    //ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	public String loginPro() {
 		return "loginView";
 	}
@@ -64,7 +64,7 @@ public class LoginController {
 		return chk;
 	}
 	
-	@RequestMapping("/login.do") //·Î±×ÀÎ
+	@RequestMapping("/login.do") //ï¿½Î±ï¿½ï¿½ï¿½
 	@ResponseBody
 	public int LoginChk(@ModelAttribute MemberDTO mdto, HttpSession session, Model model) {
 		ModelAndView mav = new ModelAndView();
@@ -92,27 +92,27 @@ public class LoginController {
 		return chk;
 	}
 
-	@RequestMapping("/mainPro.do")    //mainÆäÀÌÁö·Î ÀÌµ¿
+	@RequestMapping("/mainPro.do")    //mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	public String mainPro() {
 		return "redirect:/main.do";
 	}
 	
-	@RequestMapping("/logout.do")    //·Î±×¾Æ¿ô
+	@RequestMapping("/logout.do")    //ï¿½Î±×¾Æ¿ï¿½
 	public String logOut(HttpSession session) {
 		System.out.println("logout start");
 		session.invalidate();
 		return "redirect:/main.do";
 	}
 
-	@RequestMapping("/signUp.do")  //È¸¿ø°¡ÀÔÀ¸·Î ÀÌµ¿
+	@RequestMapping("/signUp.do")  //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	public String addUserForm() {
 		return "signup_view";
 	}
 
 
-	@RequestMapping("/register.do") //È¸¿ø°¡ÀÔÃ³¸®
+	@RequestMapping("/register.do") //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 	public @ResponseBody ModelAndView signUp(MemberDTO mdto, HttpServletRequest req) throws IllegalStateException, IOException {
-		System.out.println("signup ÄÁÆ®·Ñ·¯ µé¾î°¨!!!!!!!!");
+		System.out.println("signup ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½î°¨!!!!!!!!");
 		
 		ModelAndView mav=new ModelAndView();
 		
@@ -155,38 +155,38 @@ public class LoginController {
 				}
 	            System.out.println("getupfile=" + mdto.getUpfile());
 		}
-		System.out.println("ÀÎ¼­Æ®¿Ï·á!!!!!!!!!!!!!!!");
+		System.out.println("ï¿½Î¼ï¿½Æ®ï¿½Ï·ï¿½!!!!!!!!!!!!!!!");
 		mdto.setMem_pw(Util.getHash(mdto.getMem_pw(), "MD5"));
 		
-		String code = emailUtil.generate_accessCode(); // ÀÎÁõÄÚµå°ª »ý¼º 
+		String code = emailUtil.generate_accessCode(); // ï¿½ï¿½ï¿½ï¿½ï¿½Úµå°ª ï¿½ï¿½ï¿½ï¿½ 
 		
 		try {
-			SendEmail.sendMail(mdto.getMem_mail(), code); // ÀÎÁõ¹øÈ£ ¹ß¼Û
+			SendEmail.sendMail(mdto.getMem_mail(), code); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ß¼ï¿½
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		mdto.setMem_code(code);
 		mservice.signUp(mdto);
-		System.out.println("signup ¾ÈµÇ´ÂÁö µÇ´ÂÁö");
+		System.out.println("signup ï¿½ÈµÇ´ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½");
 		System.out.println(mav.toString());
 		mav.setViewName("redirect:/main.do");
 		return mav;
-	}// È¸¿ø°¡ÀÔ
+	}// È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
-	@RequestMapping("/emailChk.do") //eamil ÀÎÁõ¹øÈ£Ã¼Å©
+	@RequestMapping("/emailChk.do") //eamil ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£Ã¼Å©
 	public ModelAndView emailChkPro(MemberDTO mdto) {
 		ModelAndView mav=new ModelAndView();
 		int chk=mservice.emailcodechk(mdto);
 		if(chk==1) {
-	         mav.addObject("msg", "ÀÎÁõµÇ¾ú½À´Ï´Ù.");
+	         mav.addObject("msg", "ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		}else {
-	         mav.addObject("msg", "ÀÎÁõ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+	         mav.addObject("msg", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 		}
 		mav.setViewName("loginView");
 		return mav;
 	}
 	
-	/*//eamilÀÎÁõ Ãß°¡
+	/*//eamilï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	@RequestMapping("/emailAuth.do")
 	public ModelAndView emailAuth(HttpServletResponse resp, HttpServletRequest req) {
 		String email=req.getParameter("email");
@@ -198,16 +198,16 @@ public class LoginController {
 		ModelAndView mv= new Model
 	}
 	private void sendEmail(String email, String authNum) {
-		String host= "smtp.gmail.com";// smtp¼­¹ö
-		String subject = "NEGABOX ÀÎÁõ¹øÈ£Àü´Þ";
-		String fromName = "³×°¡¹Ú½º °ü¸®ÀÚ";
-		String from="                           ";//º¸³»´Â ¸ÞÀÏ
+		String host= "smtp.gmail.com";// smtpï¿½ï¿½ï¿½ï¿½
+		String subject = "NEGABOX ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½";
+		String fromName = "ï¿½×°ï¿½ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+		String from="                           ";//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String tol= email;
 		
-		String content="ÀÎÁõ¹øÈ£ [" + authNum + "]";
+		String content="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ [" + authNum + "]";
 		
 		Properties props=new Properties();
-		//G-mail smtp »ç¿ë½Ã
+		//G-mail smtp ï¿½ï¿½ï¿½ï¿½
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.transport.protocol", "smtp");
 		props.put("mail.smtp.host", host);
@@ -218,55 +218,55 @@ public class LoginController {
 	}*/
 	
 
-	@RequestMapping("/myPageShift.do")  //¸¶ÀÌÆäÀÌÁö·Î ÀÌµ¿
+	@RequestMapping("/myPageShift.do")  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	public String myPageShift() {
 		return "myPage";
 	}
 	
-	@RequestMapping("/myPage.do")  //¸¶ÀÌÆäÀÌÁö°ª
+	@RequestMapping("/myPage.do")  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ModelAndView myPage(@ModelAttribute MemberDTO mdto, HttpSession session) { 
-		System.out.println("¸¶ÀÌÆäÀÌÁö ÄÁÆ®·Ñ·¯ ÀÔ¼º!!!!");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ô¼ï¿½!!!!");
 		MemberDTO dto=mservice.memberData((String)session.getAttribute("id"));
-		System.out.println("session°ªÀº "+(String)session.getAttribute("id"));
+		System.out.println("sessionï¿½ï¿½ï¿½ï¿½ "+(String)session.getAttribute("id"));
 		System.out.println("dtoid= " + dto.getMem_id());
 		System.out.println("dtoname= " + dto.getMem_name());
 		System.out.println("dtophone= " + dto.getMem_phone());
 		System.out.println("dtomail= " + dto.getMem_mail());
 		System.out.println("dto pic= " + dto.getMem_pic());
 		ModelAndView mav=new ModelAndView();
-		System.out.println("dao Áö³ª°£°Å.tostring="+dto.toString());
+		System.out.println("dao ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.tostring="+dto.toString());
 		mav.addObject("mdto", dto);
 		mav.setViewName("myPage");
 		return mav;
 	}// end myPage()
 	
-	@RequestMapping("/memlist.do")  // È¸¿ø¼öÁ¤À¸·Î ÀÌµ¿
+	@RequestMapping("/memlist.do")  // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	public String Memlist(HttpSession session) {
 		return "Member_update";	
 	}
 	
-	@RequestMapping("/memUpdate.do")  // È¸¿ø¼öÁ¤
+	@RequestMapping("/memUpdate.do")  // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@ResponseBody
 	public String MemUpdate(@ModelAttribute MemberDTO mdto, HttpSession session) {
 		ModelAndView mav=new ModelAndView();
-		System.out.println("¼öÁ¤ÄÁÆ®·Ñ·¯ µé¾î°¨");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½î°¨");
 		String sessionId=(String)session.getAttribute("id");
 		System.out.println("sessionId= "+sessionId);
 		if(null != sessionId || !StringUtils.isEmpty(sessionId)) {
-			System.out.println("sessionid°¡ ÀÖÀ¸¸é");
+			System.out.println("sessionidï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			mdto.setMem_id(sessionId);
 			mservice.update(mdto);
-		System.out.println("¼öÁ¤ÄÁÆ®·Ñ·¯ ³¡³ª°¨");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 		return "redirect:/myPage.do";
 	}
 
 	
-	@RequestMapping("/memDelete.do")  //È¸¿øÅ»Åð
+	@RequestMapping("/memDelete.do")  //È¸ï¿½ï¿½Å»ï¿½ï¿½
 	public String MemDelete(HttpSession session) {
-		System.out.println("delete ÄÁÆ®·Ñ·¯ ÀÔ¼º");
+		System.out.println("delete ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½Ô¼ï¿½");
 		String sessionId=(String)session.getAttribute("id");
-		System.out.println("sessionId´Â "+sessionId);
+		System.out.println("sessionIdï¿½ï¿½ "+sessionId);
 		mservice.delete(sessionId);
 		session.invalidate();
 		return "redirect:/main.do";
@@ -282,7 +282,7 @@ public class LoginController {
 	public ModelAndView MemAllList(Model model) {
 		ModelAndView mav=new ModelAndView();
 		List<MemberDTO> memberList = mservice.selectMember();
-		System.out.println("selectmemberListµé¾î°¨");
+		System.out.println("selectmemberListï¿½ï¿½î°¨");
 		mav.addObject("memberList", memberList);
 		mav.setViewName("admin_member");
 		return mav;

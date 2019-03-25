@@ -16,6 +16,7 @@
 		<result column="rv_num" property="rv_num" />
 		<result column="mem_id" property="mem_id" />
 		<result column="rv_title" property="rv_title" />
+		<result column="re_count" property="re_count" />
 		<result column="rv_content" property="rv_content" />
 		<result column="rv_count" property="rv_count" />
 		<result column="rv_regdate" property="rv_regdate" />

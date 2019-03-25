@@ -141,7 +141,13 @@
 		delete from bucket where
 		bk_num = #{bk_num}
 	</delete>
-
+	<!-- 해당 버킷리스트 챌린지 삭제 -->
+	<delete id="ck_delete" parameterType="int">
+		delete from challenge where
+		bk_num = #{bk_num}
+	</delete>
+	
+	
 	<select id="pic_find" parameterType="int"
 		resultType="dto.Bucket_picDTO">
 		select * from bucket_pic where bk_num = #{bk_num}

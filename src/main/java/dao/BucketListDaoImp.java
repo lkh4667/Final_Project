@@ -111,5 +111,10 @@ public class BucketListDaoImp implements BucketListDAO{
 		sqlSession.update("bucket.bkPopCnt", bk_num);
 	}
 
+	@Override
+	public int cdeleteMethod(int bk_num) {
+		return sqlSession.delete("bucket.ck_delete", bk_num);
+	}
+
 
 }

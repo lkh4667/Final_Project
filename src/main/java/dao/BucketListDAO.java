@@ -22,6 +22,7 @@ public interface BucketListDAO {
 	public int bdeleteMethod(int bk_num);
 	public int hdeleteMethod(int bk_num);
 	public int pdeleteMethod(int bk_num);
+	public int cdeleteMethod(int bk_num);
 	public List<Bucket_picDTO> pFindMethod(int bk_num);
 	public String pFilefindMethod(Bucket_picDTO bdto);
 	public void pFileDelMethod(Bucket_picDTO bdto);

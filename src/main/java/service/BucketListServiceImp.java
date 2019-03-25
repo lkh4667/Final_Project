@@ -75,6 +75,7 @@ public class BucketListServiceImp implements BucketListService {
 		dao.hdeleteMethod(bk_num);
 		dao.pdeleteMethod(bk_num);
 		dao.bdeleteMethod(bk_num);
+		dao.cdeleteMethod(bk_num);
 	}
 
 	@Override
