@@ -5,6 +5,7 @@ import java.util.List;
 
 import dto.BucketDTO;
 import dto.Bucket_picDTO;
+import dto.ChallengeDTO;
 import dto.HashTagDTO;
 
 
@@ -25,5 +26,8 @@ public interface BucketListService {
 	public String fileFindProcess(Bucket_picDTO bdto);
 	public void fileDelProcess(Bucket_picDTO bdto);
 	public void bucketUpdateProcess(BucketDTO dto);
-	public void bucketAddProcess(int bk_num);
+	public void bucketAddProcess(ChallengeDTO cdto);
+	public int cAddChkProcess(ChallengeDTO cdto);
+	
+	public List<BucketDTO> pListProcess(String bk_group);
 }

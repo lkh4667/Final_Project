@@ -94,6 +94,10 @@
 	insert into challenge 
 	values(c_num_SEQ.nextval , #{bk_num}, #{mem_id}, 0, sysdate)
 	</insert>
+	
+	<select id="cAddCheck" parameterType="dto.ChallengeDTO" resultType="int" >
+		select count(*) from challenge where mem_id=#{mem_id} and bk_num=#{bk_num}
+	</select>
 </mapper>
 
 

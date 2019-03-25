@@ -19,6 +19,7 @@ import dto.ChallengePageDTO;
 import service.ChallengeService;
 //http://localhost:8090/mybucketlist/Challenge.do
 
+
 @Controller
 public class ChallengeController {
 	
@@ -53,6 +54,7 @@ public class ChallengeController {
 		
 		String sessionId=(String)session2.getAttribute("id");
 		
+		
 		int totalRecord = cservice.recordCountProcess(sessionId);
 		if(totalRecord>=1) {
 			if(cpdto.getCurrentPage()==0) {
@@ -67,10 +69,13 @@ public class ChallengeController {
 		System.out.println(cpdto.getStartRow());
 		System.out.println(cpdto.getEndRow());
 		
-		// String mem_id = getSession("id")濡� 諛쏆븘�삩�떎
+		// String sessionId = getSession("id")
 		HashMap<String, Object> map = new HashMap<>();
 		 
 		map.put("mem_id", sessionId);
+		
+		System.out.println("sessionId --?" +sessionId);
+		
 		map.put("startRow", cpdto.getStartRow());
 		map.put("endRow", cpdto.getEndRow());
 		
@@ -95,15 +100,20 @@ public class ChallengeController {
 	}
 	
 	   @RequestMapping("/challengeUpdate.do")
-	   public String challengeUpateProcess(int bk_num) {
+	   public String challengeUpateProcess(int bk_num, HttpServletRequest request) {
+		    HttpSession session2 =  request.getSession();
+			
+			String sessionId=(String)session2.getAttribute("id");
+		   
 		  System.out.println("challengeUpdate Start !!!!"); 
-	      String mem_id="asd123";
-	      System.out.println("mem_id===========> " + mem_id);
+	      System.out.println("sessionId===========> " + sessionId);
 	      System.out.println("bk_num==========> " + bk_num);
+	      
+	      
 	      
 	      HashMap<String, Object> map = new HashMap<>();
 	      map.put("bk_num", bk_num);
-	      map.put("mem_id",mem_id);
+	      map.put("mem_id",sessionId);
 	      
 	      cservice.cUpdateProcess(map);
 	      
@@ -114,16 +124,18 @@ public class ChallengeController {
 	   }
 	
 	   @RequestMapping("/challengeDelete.do")
-	   public String challengeDeleteProcess(int bk_num) {
-		String mem_id = "asd123";
+	   public String challengeDeleteProcess(int bk_num, HttpServletRequest request) {
+		HttpSession session2 = request.getSession();
 
-		System.out.println("mem_id->" + mem_id);
+		String sessionId = (String) session2.getAttribute("id");
+		
+		System.out.println("sessionId->" + sessionId);
 		System.out.println("bk_num-> " + bk_num);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		map.put("bk_num", bk_num);
-		map.put("mem_id", mem_id);
+		map.put("mem_id", sessionId);
 
 		cservice.cDeleteProcess(map);
 
@@ -132,11 +144,15 @@ public class ChallengeController {
 	   }
 	   
 	   @RequestMapping("/challengeReciewDelete.do")
-	   public String challengeReviewDeleteProcess(int bk_num) {
-		String mem_id = "asdfg123";
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	   public String challengeReviewDeleteProcess(int bk_num,HttpServletRequest request) {
+			HttpSession session2 = request.getSession();
+
+			String sessionId = (String) session2.getAttribute("id");
+		
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("bk_num", bk_num);
-		map.put("mem_id", mem_id);
+		map.put("mem_id", sessionId);
 		cservice.cReDelProcess(map);
 
 		return "redirect:/challengeSuccess.do";
@@ -146,13 +162,13 @@ public class ChallengeController {
 	   @RequestMapping("/challengeSuccess.do")
 		public ModelAndView successProcess(HttpServletRequest request ,ChallengePageDTO cpdto) {
 		    ModelAndView mav = new ModelAndView();
-			/*HttpSession httpSession = request.getSession(true);
-			String sessionId = (String) httpSession.getAttribute("id");*/
-			
-			String sessionId = "asd123";
+			HttpSession session2 = request.getSession();
+
+			String sessionId = (String) session2.getAttribute("id");
+		    
+		    
 			
 			int totalRecord = cservice.successRecordCntProcess(sessionId);
-			System.out.println("�굹�쓽 踰꾪궥由ъ뒪�듃 �젅肄붾뱶�닔 ========>" + totalRecord);
 			if(totalRecord>=1) {
 				if(cpdto.getCurrentPage()==0)
 					currentPage=1;
@@ -165,7 +181,7 @@ public class ChallengeController {
 			System.out.println(cpdto.getStartRow());
 			System.out.println(cpdto.getEndRow());
 			
-			// String mem_id = getSession("id")濡� 諛쏆븘�삩�떎
+			// String sessionId = getSession("id");
 			HashMap<String, Object> map = new HashMap<>();
 			 
 			map.put("mem_id", sessionId);
@@ -189,7 +205,7 @@ public class ChallengeController {
 			mav.addObject("c_list", alist);
 
 			/*httpSession.setAttribute("id", "asd123");*/
-			mav.addObject("sessionId",sessionId);
+			mav.addObject("mem_id",sessionId);
 			/*mav.setViewName("bk_sub");*/
 			mav.setViewName("challengeSuccess");
 			return mav;

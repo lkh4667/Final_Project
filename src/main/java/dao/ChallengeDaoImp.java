@@ -77,6 +77,11 @@ public class ChallengeDaoImp implements ChallengeDAO{
 		sqlSession.insert("challenge.cInsert", cdto);
 	}
 
+	@Override
+	public int cAddChkMethod(ChallengeDTO cdto) {
+		return sqlSession.selectOne("challenge.cAddCheck",cdto);
+	}
+
 
 
 

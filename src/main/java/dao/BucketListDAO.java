@@ -28,4 +28,6 @@ public interface BucketListDAO {
 	public void pFileDelMethod(Bucket_picDTO bdto);
 	public void bUpdateMethod(BucketDTO dto);
 	public void bPopUpMethod(int bk_num);
+	
+	public List<BucketDTO> pListMethod(String bk_group);
 }

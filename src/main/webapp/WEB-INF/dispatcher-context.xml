@@ -96,7 +96,7 @@
    <bean id="rvservice" class="service.ReviewServiceImp">
 		<property name="dao" ref="rvdao" /> 
 	</bean>
-   
+
 
    <!-- Controller -->
    <bean class="controller.MainPageController">
@@ -113,7 +113,9 @@
 		<property name="service" ref="rvservice" />
 	</bean>
 	
-   <bean class="controller.PopularPageController" />
+   <bean class="controller.PopularPageController" >
+   	<property name="service" ref="service" />
+   </bean>
    
    <bean class="controller.ChallengeController" >
       <property name="cservice" ref="cservice"/>

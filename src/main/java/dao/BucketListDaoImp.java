@@ -116,5 +116,10 @@ public class BucketListDaoImp implements BucketListDAO{
 		return sqlSession.delete("bucket.ck_delete", bk_num);
 	}
 
+	@Override
+	public List<BucketDTO> pListMethod(String bk_group) {
+		return sqlSession.selectList("bucket.popular", bk_group);
+	}
+
 
 }

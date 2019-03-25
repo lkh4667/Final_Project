@@ -19,6 +19,20 @@
 			<result column="bp_file" property="bp_file" />
 		</collection>
 	</resultMap>
+	
+	<resultMap type="dto.BucketDTO" id="bucket_file"
+		autoMapping="false">
+		<result column="bk_num" property="bk_num" />
+		<result column="bk_title" property="bk_title" />
+		<result column="bk_content" property="bk_content" />
+		<result column="bk_pop_cnt" property="bk_pop_cnt" />
+		<result column="bk_group" property="bk_group" />
+		<association property="pic_dto" javaType="dto.Bucket_picDTO" autoMapping="false">
+			<result column="bk" property="bk_num" />
+			<result column="bp_num" property="bp_num" />
+			<result column="bp_file" property="bp_file" />
+		</association>
+	</resultMap>
 
 	<!-- 최초 버킷 리스트 조회 -->
 	<select id="list" resultMap="bucket_list_file">
@@ -180,6 +194,24 @@
 		update bucket set bk_pop_cnt = bk_pop_cnt + 1 
 		where bk_num = #{bk_num}
 	</update>
+	
+		<select id="popular" parameterType="String" resultMap="bucket_file">
+		<![CDATA[
+			select b.* from
+				(select rownum as rw, a.*
+				from(select b.bk_num, b.bk_title,
+				b.bk_content, b.bk_pop_cnt, b.bk_group, p.bp_file
+				from bucket b,bucket_pic p
+				where b.bk_num = p.bk_num and bp_num =1
+				and bk_group = #{bk_group})a)b
+				where rw >= 1 and rw <= 8
+				order by b.bk_pop_cnt desc
+		]]>
+	
+	</select>
+	
+	
+	
 </mapper>
 
 

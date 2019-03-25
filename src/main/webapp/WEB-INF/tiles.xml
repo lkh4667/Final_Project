@@ -104,10 +104,10 @@
 
 
 
-	<definition name="menu2" extends="bk_main">
+	<definition name="popular" extends="bk_main">
 		<put-attribute name="title" value="Spring Menu2 Example" />
 		<put-attribute name="body"
-			value="/WEB-INF/view/body_menu2.jsp" />
+			value="/WEB-INF/view/popular.jsp" />
 	</definition>
 
 	<definition name="about" extends="bk_main">

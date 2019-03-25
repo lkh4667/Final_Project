@@ -29,7 +29,7 @@
 	
 	<div class="row1" ><!-- style="width: 100%; flex-wrap: nowrap; text-align: center; padding-left: 600px;" -->
 		<strong id='menu-strong' class="menu-re ff"><a href="main.do" class="jh" style="color: white;">LIBRARY</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
-		<strong id='menu-strong' class="menu-re"><a href="menu2.do" class="jh" style="color: white;">POPULAR</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+		<strong id='menu-strong' class="menu-re"><a href="popular.do" class="jh" style="color: white;">POPULAR</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
 		<strong id='menu-strong' class="menu-re"><a href="rv_list.do" class="jh" style="color: white;">REVIEW</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
 		<strong id='menu-strong' class="menu-re"><a href="challenge.do" class="jh" style="color: white;">MYBUCKET</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
 		<strong id='menu-strong' class="menu-re"><a href="about.do" class="jh" style="color: white;">ABOUT</a></strong>

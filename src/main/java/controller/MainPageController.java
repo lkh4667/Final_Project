@@ -1,23 +1,18 @@
 package controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dto.BucketDTO;
-import dto.Bucket_picDTO;
-import dto.HashTagDTO;
+import dto.ChallengeDTO;
 import service.BucketListService;
 
 
@@ -87,11 +82,29 @@ public class MainPageController {
 	@RequestMapping("/bkAdd.do")
 	@ResponseBody
 	public int bucketAddListProcess(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView();
-		System.out.println("========bucketAdd start==========");
-		String bk_num = req.getParameter("bk_num");
-		System.out.println("bk_num==========> " + bk_num);
 		int chk = 1;
+		System.out.println("bkAdd start !!!!!!");
+
+		int bk_num = Integer.parseInt(req.getParameter("bk_num"));
+		System.out.println(bk_num);
+		HttpSession session2 = req.getSession();
+		String sessionId = (String) session2.getAttribute("id");
+		System.out.println("sessionId===================> " + sessionId);
+
+		ChallengeDTO dto = new ChallengeDTO();
+		dto.setBk_num(bk_num);
+		dto.setMem_id(sessionId);
+
+		int addchk = service.cAddChkProcess(dto);
+		if (sessionId != null) {
+			if (addchk == 0) {
+				service.bucketAddProcess(dto);
+				chk = 0;
+			} else {
+				chk = 2;
+			}
+
+		}
 		return chk;
 	}
 }

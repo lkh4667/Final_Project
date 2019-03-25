@@ -30,4 +30,6 @@ public interface ChallengeDAO {
 	
 	public void cInsertMethod(ChallengeDTO cdto);
 	
+	public int cAddChkMethod(ChallengeDTO cdto);
+	
 }

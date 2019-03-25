@@ -119,14 +119,20 @@ public class BucketListServiceImp implements BucketListService {
 	}
 
 	@Override
-	public void bucketAddProcess(int bk_num) {
+	public void bucketAddProcess(ChallengeDTO cdto) {
+		int bk_num = cdto.getBk_num();
 		dao.bPopUpMethod(bk_num);
-		ChallengeDTO cdto = new ChallengeDTO();
-		cdto.setBk_num(bk_num);
-		// 세션 아이디로 받는다 
-		String mem_id = "asd123";
-		cdto.setMem_id(mem_id);
 		cdao.cInsertMethod(cdto);
+	}
+
+	@Override
+	public int cAddChkProcess(ChallengeDTO cdto) {
+		return cdao.cAddChkMethod(cdto);
+	}
+
+	@Override
+	public List<BucketDTO> pListProcess(String bk_group) {
+		return dao.pListMethod(bk_group);
 	}
 
 }
