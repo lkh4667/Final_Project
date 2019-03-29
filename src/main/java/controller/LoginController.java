@@ -32,7 +32,7 @@ import service.MemberService;
 @Controller
 public class LoginController {
 	private String path;
-
+	private String prevUrl;
 	public LoginController() {
 	}
 
@@ -47,7 +47,9 @@ public class LoginController {
 	}
 
 	@RequestMapping("/loginPro.do") // 로그인페이지로 이동
-	public String loginPro() {
+	public String loginPro(String prevUrl) {
+		this.prevUrl = prevUrl;
+		System.out.println("url============> " + this.prevUrl);
 		return "loginView";
 	}
 

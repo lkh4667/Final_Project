@@ -36,12 +36,27 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 	<div class="w3-container">
   <div class="w3-container" style="margin-top: 20px;">
     <img src="images/img1.jpg" style="width:70%;" class="w3-round"><br><br>
-    <h4><b>${id}</b></h4>
+    <c:choose>
+    <c:when test="${mem_id != null }">
+    <h4><b>${mem_id}</b></h4>
+    </c:when>
+    <c:otherwise>
+     <h4><b>${id}</b></h4>
+    </c:otherwise>
+    </c:choose>
   </div>
   <div class="w3-bar-block">
-    <a href="challenge.do"  id="cs" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="height: 50px; font-size: 19px;"><i class="w3-margin-right"></i>도전중</a> 
-    <a href="challengeSuccess.do" id="csp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"style="height: 50px; font-size: 19px;" ><i class="w3-margin-right"></i>도전완료</a>
+    <c:choose>
+    <c:when test="${mem_id != null }">
+     <a href="challenge.do?mem_id=${mem_id}"  id="cs" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="height: 50px; font-size: 19px;"><i class="w3-margin-right"></i>도전중</a> 
+    <a href="challengeSuccess.do?mem_id=${mem_id}" id="csp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"style="height: 50px; font-size: 19px;" ><i class="w3-margin-right"></i>도전완료</a>
   
+    </c:when>
+    <c:otherwise>
+         <a href="challenge.do"  id="cs" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" style="height: 50px; font-size: 19px;"><i class="w3-margin-right"></i>도전중</a> 
+    <a href="challengeSuccess.do" id="csp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"style="height: 50px; font-size: 19px;" ><i class="w3-margin-right"></i>도전완료</a>
+    </c:otherwise>
+    </c:choose>
   </div>
   </div>
 </div>
@@ -72,8 +87,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       <div class="w3-container w3-white">
         <h5>${ck.bk_title}</h5>
         <div style="width: 400px; height: 100px;">
-        	 <p><button id="succussBtn" class="w3-button w3-white w3-border w3-border-red w3-round-large" style="margin-left: 170px;" value="${ck.bk_num}">도전완료</button>
-			 <button id="cDeleteBtn" class="w3-button w3-white w3-border w3-border-red w3-round-large" style="margin-left: 0; width: 50px;" value="${ck.bk_num}">취소</button></p> 
+        	
+        				<c:choose>
+   						 <c:when test="${mem_id != null }">
+    							 <p><button id="viewBtn" class="w3-button w3-white w3-border w3-border-red w3-round-large" style="margin-left: 170px;" value="${ck.bk_num}">뷰 보러가기</button>
+    					 </c:when>
+    					 <c:otherwise>
+     							 <p><button id="succussBtn" class="w3-button w3-white w3-border w3-border-red w3-round-large" style="margin-left: 170px;" value="${ck.bk_num}">도전완료</button>
+								 <button id="cDeleteBtn" class="w3-button w3-white w3-border w3-border-red w3-round-large" style="margin-left: 0; width: 50px;" value="${ck.bk_num}">취소</button></p> 
+   						 </c:otherwise>
+   						 </c:choose>
         </div>
       </div>
       

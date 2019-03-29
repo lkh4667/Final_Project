@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
 <!DOCTYPE html>    
 <html>
 <head>
@@ -31,7 +33,9 @@
 		<strong id='menu-strong' class="menu-re ff"><a href="main.do" class="jh" style="color: white;">LIBRARY</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
 		<strong id='menu-strong' class="menu-re"><a href="popular.do" class="jh" style="color: white;">POPULAR</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
 		<strong id='menu-strong' class="menu-re"><a href="rv_list.do" class="jh" style="color: white;">REVIEW</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+		<c:if test="${id != 'admin' }">
 		<strong id='menu-strong' class="menu-re"><a href="challenge.do" class="jh" style="color: white;">MYBUCKET</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:if>
 		<strong id='menu-strong' class="menu-re"><a href="about.do" class="jh" style="color: white;">ABOUT</a></strong>
 	</div>
 	

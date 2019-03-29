@@ -94,7 +94,7 @@
 					</tr>
 					
 					<tr>
-						<td id="writerTd" colspan="3">${dto.mem_id}</td>
+						<td id="writerTd" colspan="3"><a href="challenge.do?mem_id=${dto.mem_id}">${dto.mem_id}</a></td>
 					</tr>
 					
 					

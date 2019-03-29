@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,23 +16,25 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+
 <%@page import="org.springframework.util.StringUtils"%><body>
 	<script type="text/javascript">
-
 $(document).ready(function () {
 	$('#signIn').on('click', function () {
 		 //$("#signInModal").modal("show"); 
-		 location.href="loginPro.do";
+		console.log("url : "+$(location).attr('protocol')+"//"+$(location).attr('host')+""+$(location).attr('pathname')+""+$(location).attr('search'));
+		var url = $(location).attr('pathname');
+		var prevUrl = url.substr(url.lastIndexOf('/')+1);
+		location.href="loginPro.do?prevUrl="+prevUrl;
 	});
 	
-	var sessionId='<%=(String)session.getAttribute("id")%>';
-	 $('#logOutBtn').on('click',function(){
-		location.href="logout.do";
-		alert('로그아웃 되었습니다.');
-	}); 
-});
-
-</script>
+	var sessionId='<%=(String) session.getAttribute("id")%>';
+			$('#logOutBtn').on('click', function() {
+				location.href = "logout.do";
+				alert('로그아웃 되었습니다.');
+			});
+		});
+	</script>
 	<%
 		if (null == session.getAttribute("id") || StringUtils.isEmpty(session.getAttribute("id"))) {
 	%>
@@ -40,21 +42,24 @@ $(document).ready(function () {
 	<%
 		} else {
 	%>
-	<strong>
-	<a href="myPage.do" id="session" style="color: yellow;">
-		<%= session.getAttribute("name") %></a><span>
-			님 환영합니다.</span></strong>
-	<c:if test="${id == 'admin'}">
-	<strong>
-		<a style="color: yellow;"><%= session.getAttribute("name") %></a><span>
-			님 환영합니다.</span></strong>
-		<span><a href="admin.do" id="adminPagePro">관리자 페이지로 이동</a></span>
-	</c:if>
+	<strong> <c:choose>
+			<c:when test="${id == 'admin'}">
+				<strong> <a style="color: yellow;"><%=session.getAttribute("name")%></a><span>
+						님 환영합니다.</span></strong>
+				<span><a href="admin.do" id="adminPagePro">관리자 페이지로 이동</a></span>
+			</c:when>
+			<c:otherwise>
+				<a href="myPage.do" id="session" style="color: yellow;"> <%=session.getAttribute("name")%></a>
+				<span> 님 환영합니다.</span>
+			</c:otherwise>
+		</c:choose></strong>
 	<span><button id="logOutBtn">로그아웃</button></span>
 	<%
 		}
 	%>
 	<!-- <strong><a href="#">회원가입</a></strong> -->
- </body>
+</body>
+<script type="text/javascript" src="js/login_modal.js"></script>
+
 </html>
 

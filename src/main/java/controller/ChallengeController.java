@@ -45,17 +45,23 @@ public class ChallengeController {
 
 
 	@RequestMapping("/challenge.do")
-	public ModelAndView process(HttpServletRequest request ,ChallengePageDTO cpdto) {
+	public ModelAndView process(HttpServletRequest request, ChallengePageDTO cpdto) {
 		ModelAndView mav = new ModelAndView();
 		/*HttpSession httpSession = request.getSession(true);
 		String sessionId = (String) httpSession.getAttribute("id");*/
 		
 		HttpSession session2 =  request.getSession();
-		
+		String mem_id = request.getParameter("mem_id");
 		String sessionId=(String)session2.getAttribute("id");
+		System.out.println("mem_id=========? " + request.getParameter("mem_id"));
 		
+		int totalRecord = 0;
+		if (mem_id != null) {
+			totalRecord = cservice.recordCountProcess(mem_id);
+		}else {
+			totalRecord = cservice.recordCountProcess(sessionId);
+		}
 		
-		int totalRecord = cservice.recordCountProcess(sessionId);
 		if(totalRecord>=1) {
 			if(cpdto.getCurrentPage()==0) {
 				currentPage=1;
@@ -66,14 +72,17 @@ public class ChallengeController {
 			mav.addObject("cpdto",cpdto);
 		}
 		
-		System.out.println(cpdto.getStartRow());
-		System.out.println(cpdto.getEndRow());
+	/*	System.out.println(cpdto.getStartRow());
+		System.out.println(cpdto.getEndRow());*/
 		
 		// String sessionId = getSession("id")
 		HashMap<String, Object> map = new HashMap<>();
 		 
-		map.put("mem_id", sessionId);
-		
+		if (mem_id != null) {
+			map.put("mem_id", mem_id);
+		}else {
+			map.put("mem_id", sessionId);
+		}
 		System.out.println("sessionId --?" +sessionId);
 		
 		map.put("startRow", cpdto.getStartRow());
@@ -92,7 +101,7 @@ public class ChallengeController {
 		}
 		
 		mav.addObject("c_list", alist);
-
+		mav.addObject("mem_id", mem_id);
 		/*httpSession.setAttribute("id", "asd123");*/
 		/*mav.setViewName("bk_sub");*/
 		mav.setViewName("bk_sub");
@@ -166,9 +175,15 @@ public class ChallengeController {
 
 			String sessionId = (String) session2.getAttribute("id");
 		    
-		    
+			String mem_id = request.getParameter("mem_id");
+			int totalRecord = 0;
 			
-			int totalRecord = cservice.successRecordCntProcess(sessionId);
+			if (mem_id != null) {
+				totalRecord = cservice.successRecordCntProcess(mem_id);
+			}else {
+				totalRecord = cservice.successRecordCntProcess(sessionId);
+			}
+			
 			if(totalRecord>=1) {
 				if(cpdto.getCurrentPage()==0)
 					currentPage=1;
@@ -184,12 +199,15 @@ public class ChallengeController {
 			// String sessionId = getSession("id");
 			HashMap<String, Object> map = new HashMap<>();
 			 
-			map.put("mem_id", sessionId);
+			if (mem_id != null) {
+				map.put("mem_id", mem_id);
+			}else {
+				map.put("mem_id", sessionId);
+			}
 			map.put("startRow", cpdto.getStartRow());
 			map.put("endRow", cpdto.getEndRow());
 			
 			List<ChallengeDTO> cList= cservice.successListProcess(map);
-			System.out.println("由ъ뒪�듃 �궗�씠利�========>" +cList.size());
 			List<BucketDTO> alist = new ArrayList<BucketDTO>();
 
 			for (ChallengeDTO cdto : cList) {
@@ -205,7 +223,7 @@ public class ChallengeController {
 			mav.addObject("c_list", alist);
 
 			/*httpSession.setAttribute("id", "asd123");*/
-			mav.addObject("mem_id",sessionId);
+				mav.addObject("mem_id", mem_id);
 			/*mav.setViewName("bk_sub");*/
 			mav.setViewName("challengeSuccess");
 			return mav;

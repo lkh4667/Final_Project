@@ -41,6 +41,9 @@
 							style="background-color: transparent; border: none;">
 							회원가입<img src="" />
 						</button>
+						<c:if test="${param.prevUrl != null }">
+							<input type="hidden" id="Urlvalue" value="${param.prevUrl}"/>
+						</c:if>
 						<input type="hidden" id="Urlvalue" value="${param.returnUrl}"/>
 		</fieldset>
 	</form>

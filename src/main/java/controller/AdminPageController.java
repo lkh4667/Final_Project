@@ -83,8 +83,8 @@ public class AdminPageController {
 
 	@RequestMapping("/bkWriteEnd.do")
 	@ResponseBody
-	public int bucketwriteEndProcess(@RequestParam("sel_files") List<MultipartFile> images, BucketDTO dto,
-			String ht_name) {
+	public int bucketwriteEndProcess(@RequestParam("sel_files") List<MultipartFile> images, 
+			BucketDTO dto,String ht_name) {
 
 		System.out.println("bucket Insert start");
 

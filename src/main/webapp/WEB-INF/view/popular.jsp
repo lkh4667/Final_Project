@@ -105,7 +105,7 @@
 	<div class="container-fluid">
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Traval.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>travel</h3>
 				<hr />
@@ -115,7 +115,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Sport.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>sports</h3>
 				<hr />
@@ -125,7 +125,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Food.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>food</h3>
 				<hr />
@@ -135,7 +135,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_NewSkill.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>newskill</h3>
 				<hr />
@@ -145,7 +145,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Culture.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>culture</h3>
 				<hr />
@@ -155,7 +155,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Outdoor.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>outdoor</h3>
 				<hr />
@@ -165,7 +165,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Shopping.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>shopping</h3>
 				<hr />
@@ -175,7 +175,7 @@
 		</div>
 		<div id="img-box"
 			class="col-xl-3 col-lg-3 col-md-3 col-sm-3 project wow animated animated4 fadeInLeft"
-			style="background-image: url(/bucket_img/#); background-color:bisque; background-size: 100% 100%;">
+			style="background-image: url(./images/TOP8_Lifestyle.jpg); background-color:bisque; background-size: 100% 100%;">
 			<div class="project-hover">
 				<h3>lifestyle</h3>
 				<hr />
