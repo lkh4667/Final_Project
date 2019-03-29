@@ -3,23 +3,22 @@ package emailTest;
 import java.util.HashMap;
 
 public class SendEmail {
-	// »ç¿ë ¾ÈÇÏ´Â ÄÚµå. ÀÌ¸ŞÀÏ Àü¼Û ¾ÈÇÔ
 	public static void sendMail(String email, String access_cd)throws Exception{
 		HashMap<String, Object> arg = new HashMap<String, Object>();
-		StringBuffer mailHtml = new StringBuffer();// StringBuffer°´Ã¼ mailHtml»ı¼º
+		StringBuffer mailHtml = new StringBuffer();// StringBufferê°ì²´ mailHtmlìƒì„±
 		mailHtml.append("<html>");
 		mailHtml.append("<body\">");
 		mailHtml.append("<div style=\"width:100%;background:#f3f3f3;padding-top:10%;padding-bottom:10%; \">");
 		mailHtml.append("<div  style=\"width:70%; margin-left:5%;padding:10%;border: 1px solid #ccc;background:#fff; \">");
-		mailHtml.append("<span style=\"font-weight:bold;font-size: 1.2em\">È¸¿ø°¡ÀÔ ÀÌ¸ŞÀÏ ÀÎÁõ</span><br><hr style=\"border-width: 2px;\">");
+		mailHtml.append("<span style=\"font-weight:bold;font-size: 1.2em\">íšŒì›ê°€ì… ì´ë©”ì¼ ì¸ì¦</span><br><hr style=\"border-width: 2px;\">");
 		mailHtml.append("<div  style=\"margin-top:5%;\">");
-		mailHtml.append("<span style=\"font-size: 1.1em;color: #222\">¾È³çÇÏ¼¼¿ä. myBucket ´ëÇ¥ÀÚ µà´ÏÀÔ´Ï´Ù</span>.<br>");
-		mailHtml.append("<span style=\"color:#ff9d41;margin-top:15px;\">ÀÎÁõ¹øÈ£°¡ µµÂøÇß½À´Ï´Ù.");
+		mailHtml.append("<span style=\"font-size: 1.1em;color: #222\">ì•ˆë…•í•˜ì„¸ìš”. myBucket ëŒ€í‘œì ë“€ë‹ˆì…ë‹ˆë‹¤</span>.<br>");
+		mailHtml.append("<span style=\"color:#ff9d41;margin-top:15px;\">ì¸ì¦ë²ˆí˜¸ê°€ ë„ì°©í–ˆìŠµë‹ˆë‹¤.");
 		mailHtml.append("</div>");
 		mailHtml.append("<div style=\"margin-top:30px;border-bottom: 1px solid #bbb;border-top: 1px solid #bbb;padding:5%;background: #eee\" >");
-		mailHtml.append("<div>¡İ  ÀÎÁõ¹øÈ£ : <span style=\"font-weight: bold;color : #3d8aea;\">"+access_cd+"</span></div>");
+		mailHtml.append("<div>â—  ì¸ì¦ë²ˆí˜¸ : <span style=\"font-weight: bold;color : #3d8aea;\">"+access_cd+"</span></div>");
 		mailHtml.append("</div>");
-		mailHtml.append("<div style=\"margin-top:30px;\"><span style=\"font-size: 1em;color:black\">ÀÚ¼¼ÇÑ »çÇ×Àº myBucket °í°´¼¾ÅÍ¿¡¼­ Âü°íÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br>°¨»çÇÕ´Ï´Ù.</span><br></div>");
+		mailHtml.append("<div style=\"margin-top:30px;\"><span style=\"font-size: 1em;color:black\">ìì„¸í•œ ì‚¬í•­ì€ myBucket ê³ ê°ì„¼í„°ì—ì„œ ì°¸ê³ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br>ê°ì‚¬í•©ë‹ˆë‹¤.</span><br></div>");
 		mailHtml.append("</div>");
 		mailHtml.append("</div>");
 		mailHtml.append("</body>");
@@ -27,10 +26,10 @@ public class SendEmail {
 		mailHtml.append("</html> \n");
 
 		JAVA2MailVO mailvo = new JAVA2MailVO();
-		mailvo.FROM = "duny@myBucket.com"; //¹ß½ÅÀÚ
-		mailvo.TO = email; //¼ö½ÅÀÚ
-		mailvo.TITLE = "[myBucket]" + email + "´ÔÀÇ ÀÌ¸ŞÀÏ ÀÎÁõÄÚµåÀÔ´Ï´Ù."; //¸ŞÀÏÁ¦¸ñ
-		mailvo.BODY = mailHtml.toString(); //³»¿ë
+		mailvo.FROM = "duny@myBucket.com"; //ë°œì‹ ì
+		mailvo.TO = email; //ìˆ˜ì‹ ì
+		mailvo.TITLE = "[myBucket]" + email + "ë‹˜ì˜ ì´ë©”ì¼ ì¸ì¦ì½”ë“œì…ë‹ˆë‹¤."; //ë©”ì¼ì œëª©
+		mailvo.BODY = mailHtml.toString(); //ë‚´ìš©
 
 		JAVA2Mail mail = new JAVA2Mail();
 		mail.sendMail(mailvo);

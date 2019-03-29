@@ -82,22 +82,22 @@
 			value="/WEB-INF/view/myPage.jsp" />
 	</definition>
 	
-	<definition name="Member_update" extends="bk_main">
+	<definition name="mem_update" extends="bk_sub">
 		<put-attribute name="title" value="Spring Review_List Example" />
 		<put-attribute name="body"
-			value="/WEB-INF/view/Member_update.jsp" />
+			value="/WEB-INF/view/mem_update.jsp" />
 	</definition>
 	
-	<definition name="Member_update" extends="bk_main">
+	<definition name="mem_update" extends="bk_sub">
 		<put-attribute name="title" value="Spring Review_View Example" />
 		<put-attribute name="body"
-			value="/WEB-INF/view/Member_update.jsp" />
+			value="/WEB-INF/view/mem_update.jsp" />
 	</definition>
 	
-	<definition name="Member_update" extends="bk_main">
+	<definition name="mem_update" extends="bk_sub">
 		<put-attribute name="title" value="Spring Review_Write Example" />
 		<put-attribute name="body"
-			value="/WEB-INF/view/Member_update.jsp" />
+			value="/WEB-INF/view/mem_update.jsp" />
 	</definition>
 	
 	

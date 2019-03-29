@@ -13,10 +13,8 @@ public class MemberDTO {
 	private String mem_pic;
 	private Date mem_regdate;
 	private MultipartFile upfile;
-	private String mem_code;
 	
 	public MemberDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getMem_id() {
@@ -81,14 +79,6 @@ public class MemberDTO {
 
 	public void setUpfile(MultipartFile upfile) {
 		this.upfile = upfile;
-	}
-
-	public String getMem_code() {
-		return mem_code;
-	}
-
-	public void setMem_code(String mem_code) {
-		this.mem_code = mem_code;
 	}
 
 }

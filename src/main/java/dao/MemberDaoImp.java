@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import dto.AdminDTO;
 import dto.MemberDTO;
 
 public class MemberDaoImp implements MemberDAO {
@@ -63,14 +64,26 @@ public class MemberDaoImp implements MemberDAO {
 		return sqlSession.selectList("member.memlistAll");
 	}
 
+
 	@Override
-	public int emailchk(MemberDTO mdto) {
-		return sqlSession.selectOne("member.memcodechk", mdto);
+	public int adminchk(AdminDTO adto) {
+		return sqlSession.selectOne("member.admin", adto);
 	}
 
-	
+	@Override
+	public int adminIdChk(String ad_id) {
+		return sqlSession.selectOne("member.adminidcheck", ad_id);
+	}
 
+	@Override
+	public void picUpdate(String mem_id) {
+		sqlSession.update("member.picupdate", mem_id);
+	}
 
+	@Override
+	public String MemIdSearch(MemberDTO mdto) {
+		return sqlSession.selectOne("member.idsearch", mdto);
+	}
 
 }
 

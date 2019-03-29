@@ -24,12 +24,11 @@ $(document).ready(function() {
 		});
 	}
 	
-	
 	$('#mem_pic').on("change", handleImg);
-		
-		 $('#registerBtn').on('click', function(){
-			 var inval_Arr=new Array(4).fill(false);
-		   		//비밀번호
+	var inval_Arr=new Array(4).fill(false);
+	$('#registerBtn').on('click', function(){
+		var validAll=false;
+		   		// 비밀번호
 		   		if(pwJ.test($('#mem_pw').val())&&($('#mem_pw').val()==($('#mem_pw2').val()))){
 		   			inval_Arr[0]=true;
 		   		}else{
@@ -65,28 +64,27 @@ $(document).ready(function() {
 		              alert('모든 항목을 양식에 맞게 작성해주세요.');
 		              return false;
 		           }
-		          
-		        var validAll = true;
+		           
 		        for(var i = 0; i < inval_Arr.length; i++){
 		           if(inval_Arr[i] == false){
 		              validAll = false;
+		           }else{
+		        	   validAll=true;
 		           }
 		        }
-		        alert('validAll= '+validAll);
-		    
 		        if(validAll == true){ // 유효성 모두 통과
-		        		alert($('form').prop('action'));
-		        		
-		        		alert('이메일 인증 메일을 보냈습니다.');
+		        	alert('회원가입이 완료되었습니다.');
+		        	$('form').prop('action', 'register.do');
 		        } else{
 		        	alert('모든 항목을 양식에 맞게 작성해주세요.');
+		        	return false;
 		        } 
-	});  
+	});
 
 
-//모든 공백 체크 정규식
+// 모든 공백 체크 정규식
 	   var empJ = /\s/g;
-	   //아이디 정규식
+	   // 아이디 정규식
 	   var idJ = /^[a-z0-9]{4,12}$/;
 	   // 비밀번호 정규식
 	   var pwJ = /^[A-Za-z0-9]{4,12}$/;
@@ -96,13 +94,11 @@ $(document).ready(function() {
 	  var mailJ = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	   // 휴대폰 번호 정규식
 	  var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
-	  //숫자만
-	  var regex= /[^0-9]/g;
+	  // 숫자만
+	  var regex= /[^0-9]/;
 	  
-	  
-	  //blur 이벤트
-	  //패스워드
-	  
+	  // blur 이벤트
+	  // 패스워드
 	  var cpwchk=false;
 	  $('#mem_pw').blur(function() {
 		  console.log('pwcheck 성공');
@@ -140,7 +136,7 @@ $(document).ready(function() {
 			  else if ($('#mem_pw').val() != $(this).val()) {
 		            $('#cpwcheck').text('비밀번호가 일치하지 않습니다 :(');
 		            $('#cpwcheck').css('color', 'red');
-		          /*  $("#register").attr("disabled", true);*/
+		          /* $("#register").attr("disabled", true); */
 		         } else {
 		            $('#cpwcheck').text('비밀번호가 일치합니다. :)');
 		            $('#cpwcheck').css('color', 'blue');
@@ -149,7 +145,7 @@ $(document).ready(function() {
 	  });
 	  
 
-      //이름에 특수문자 들어가지 않도록 설정
+      // 이름에 특수문자 들어가지 않도록 설정
       $("#mem_name").blur(function() {
     	  if($('#mem_name').val()==''){
         	  $('#namecheck').text('');
@@ -163,7 +159,7 @@ $(document).ready(function() {
           }
       });
       
-      //핸드폰 유효성
+      // 핸드폰 유효성
       $('#mem_phone').blur(function(){
      	 if($('#mem_phone').val()==''){
          	  $('#phonecheck').text('');
@@ -176,121 +172,112 @@ $(document).ready(function() {
 	              }
            }
         });   
-      //이메일 유효성
+      // 이메일 유효성
       $("#mem_mail").blur(function() {
     	  if($('#mem_mail').val()==''){
         	  $('#emailcheck').text('');
-        	  $('#emailcode').click(function(){
-            	  $('#emailcode').attr('disabled', true);
-              });
           }else{
 	         if (mailJ.test($(this).val())) {
 	            $("#emailcheck").text('');
-	            $('#emailcode').click(function(){
-	          	  $('#emailcode').css('display', 'none');
-	          	  alert('인증번호가 전송되었습니다.');
-	          	  $('#emailcodechk').css('display', '');
-	            });
 	         } else {
 	            $('#emailcheck').text('이메일 양식을 확인해주세요');
 	            $('#emailcheck').css('color', 'red');
-	            $('#emailcode').click(function(){
-	            	  $('#emailcode').attr('disabled', true);
-	              });
 	         }
           }
       });
       
-      /*$('#emailcodechk').click(function(){
-    	  $.ajax({
-   			type : 'GET',
-   			dateType: 'text',
-      		 url : 'emailChk.do?mem_code='+ mem_code,
-   			success : function(data) {
-				if(data==true){
-					$('#idcheck').text('이미 사용중인 아이디입니다. :(');
-					$('#idcheck').css('color', 'red');
-					$("#registerBtn").attr("disabled", true);
-				}else{
-					
-				}
-   			}	
-      });
-      });*/
-    /*  $("#mem_mailcode").blur(function() {
-    	  if($('#mem_mailcode').val()==''){
-    		  $('#emailcodecheck').text('');
+      $('#emailcode').on('click', function(){
+    	  $("#registerBtn").attr("disabled", true);
+    	  var temp_id=$('#mem_mail').val();
+		  alert('인증번호가 전송되었습니다.');
+		  $('#emailcode').css('display', 'none');
+		  $('#emailcodechk').css('display', '');
+		  $("#registerBtn").attr("disabled", true);
+		  $.ajax({
+			type : 'POST',
+  			url : 'codeSend.do',
+  			data : {
+  				temp_id : temp_id 
+  			},
+  			dataType : 'json',
+  			success : function(res){
+  				alert('res값은= '+res);
+  				$('#emailcodechk').on('click', function(){
+  					var emailcode=$('#mem_mailcode').val();
+  					alert('res= '+res);
+  					if(res==emailcode){  
+	  					$('#emailcodecheck').text('인증되었습니다. :)');
+	  					$('#emailcodecheck').css('color', 'blue');
+	  					$("#registerBtn").attr("disabled", false);
+	  				}else{// 실패
+	  					$('#emailcodecheck').text('인증번호가 올바르지 않습니다. :(');
+	  					$('#emailcodecheck').css('color', 'red');
+	  					$("#registerBtn").attr("disabled", true);
+	  				}
+  				});
+  				console.log('success');
+  			 },// success
+  			 error:function(){
+  				 alert('오류');
+  			 }
+		  }); // ajax
+      	});
+      $("#mem_mailcode").blur(function() {  // 이메일인증 유효성검사
+    	  if($('#mem_mail').val()==''){
+	  			$('#emailcodecheck').attr('disabled', true);
+	  			alert('이메일을 먼저 입력해주세요.');
+	  			$("#registerBtn").attr("disabled", true);
     	  }else{
-    		  if (regex.test($(this).val())) {
-    			  $("#emailcodecheck").text('');
-    		  } else {
-    			  $('#emailcheck').text('인증번호는 숫자만 입력가능합니다.');
-    			  $('#emailcheck').css('color', 'red');
-    		  }
-    	  }
-      }); */
-      /*//인증번호 유효성
-      var mem_mailcode=$('#mem_mailcode').val();
-      $('#emailcodechk').click(function(){
-    	  $.ajax({
-   			type : 'GET',
-   			dateType: 'text',
-      		 url : 'emailChk.do?code='+ mem_mailcode,
-   			success : function(data) {
-				if(data==true){
-					$('#idcheck').text('이미 사용중인 아이디입니다. :(');
-					$('#idcheck').css('color', 'red');
-					$("#registerBtn").attr("disabled", true);
-				}else{
-      });
-      */
-	  
+	    	  if($('#mem_mailcode').val()==''){
+	    		  $('#emailcodecheck').text('이메일 인증을 해주세요.');
+			      $('#emailcodecheck').css('color', 'red');
+			      $("#registerBtn").attr("disabled", true);
+	    	  }
+    	   }
+	 });// 유효성
+
       
       
-     //id 유효성검사
+     // id 유효성검사
       $("#mem_id").blur(function() {
 				if($('#mem_id').val()==''){
 					$('#idcheck').text('아이디를 입력하세요.');
-					$('#idcheck').css('color', 'red');   						
+					$('#idcheck').css('color', 'red');   		
+				    $("#registerBtn").attr("disabled", true);
 				} else if(idJ.test($('#mem_id').val())!=true){
 					$('#idcheck').text('4~12자의 영문, 숫자만 사용 가능합니다.');
 					$('#idcheck').css('color', 'red');
+				    $("#registerBtn").attr("disabled", true);
 				} else if($('#mem_id').val()!=''){
-	        	 
-	        	var user_id=$('#mem_id').val();
-	        	 $.ajax({
-	     			type : 'GET',
-	     			dateType: 'text',
-	        		 url : 'idcheck.do?mem_id='+ user_id,
-	     			success : function(data) {
-					if(data==true){
-						$('#idcheck').text('이미 사용중인 아이디입니다. :(');
-						$('#idcheck').css('color', 'red');
-						$("#registerBtn").attr("disabled", true);
-					}else{
-						if(idJ.test(user_id)){
-							$('#idcheck').text('사용 가능한 아이디입니다. :)');
-							$('#idcheck').css('color', 'blue');
-							$("#registerBtn").attr("disabled", false);
-						}else if(user_id==''){
-							$('#idcheck').text('아이디를 입력해주세요. :)');
-		      	            $('#idcheck').css('color', 'red');
-		      	            $('#registerBtn').attr("disabled", true);
-						}
-						else{
-							$('#idcheck').text("아이디는 소문자와 숫자 4~12자리만 가능합니다. ");
+		        	var user_id=$('#mem_id').val();
+		        	 $.ajax({
+		     			type : 'GET',
+		     			dateType: 'text',
+		        		 url : 'idcheck.do?mem_id='+ user_id,
+		     			success : function(data) {
+						if(data==true){
+							$('#idcheck').text('이미 사용중인 아이디입니다. :(');
 							$('#idcheck').css('color', 'red');
-							$('#registerBtn').attr("disabled", true);
+							$("#registerBtn").attr("disabled", true);
+						}else{
+							if(idJ.test(user_id)){
+								$('#idcheck').text('사용 가능한 아이디입니다. :)');
+								$('#idcheck').css('color', 'blue');
+								$("#registerBtn").attr("disabled", false);
+							}else if(user_id==''){
+								$('#idcheck').text('아이디를 입력해주세요. :)');
+			      	            $('#idcheck').css('color', 'red');
+			      	            $('#registerBtn').attr("disabled", true);
+							}
+							else{
+								$('#idcheck').text("아이디는 소문자와 숫자 4~12자리만 가능합니다. ");
+								$('#idcheck').css('color', 'red');
+								$('#registerBtn').attr("disabled", true);
+							}
 						}
-					}
-				 }
-	        	 });//ajax///
-	         }//else if
+					 }
+		        	 });// ajax///
+	         }// else if
         
-      });//blur
-      
-      $('#mem_id').focus(function(){
-	  $("#idcheck").text("");
-      });
-
+      });// blur
 });

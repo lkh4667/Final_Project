@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -29,7 +29,7 @@
 				<hr style="line-height: 20px; color: #8e8e8e">
 				</div>
 						
-				<a href="/signup_view.jsp" id="signIn"class="memSearchBtn" id="signUp2Btn"
+				<a href="/" id="signIn"class="memSearchBtn" id="signUp2Btn"
 							style="background-color: transparent; border: none;">
 							아이디 찾기<img src="" />
 						</a>
@@ -41,6 +41,7 @@
 							style="background-color: transparent; border: none;">
 							회원가입<img src="" />
 						</button>
+						<input type="hidden" id="Urlvalue" value="${param.returnUrl}"/>
 		</fieldset>
 	</form>
 </body>

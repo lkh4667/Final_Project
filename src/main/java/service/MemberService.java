@@ -3,17 +3,21 @@ package service;
 
 import java.util.List;
 
+import dto.AdminDTO;
 import dto.MemberDTO;
 
 public interface MemberService {
-   public int login(MemberDTO mdto); //·Î±×ÀÎ Ã³¸®
-   public void signUp(MemberDTO mdto); //È¸¿ø°¡ÀÔ
-   public String nameSession(String mem_id); //name ¼¼¼Ç
-   public String picSession(String mem_id); //pic¼¼¼Ç
-   public int memIdChkPro(String mem_id);  //idÁ¶È¸
-   public MemberDTO memberData(String mem_id); //È¸¿øÁ¤º¸
-   public void update(MemberDTO mdto); //È¸¿ø ¼öÁ¤
-   public void delete(String mem_id);//È¸¿ø»èÁ¦
-   public List<MemberDTO> selectMember();//È¸¿ø ÀüÃ¼ Á¶È¸
-   public int emailcodechk(MemberDTO mdto);//ÀÌ¸ÞÀÏ Ã¼Å©
+   public int login(MemberDTO mdto); //ï¿½Î±ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+   public void signUp(MemberDTO mdto); //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   public String nameSession(String mem_id); //name ï¿½ï¿½ï¿½ï¿½
+   public String picSession(String mem_id); //picï¿½ï¿½ï¿½ï¿½
+   public int memIdChkPro(String mem_id);  //idï¿½ï¿½È¸
+   public MemberDTO memberData(String mem_id); //È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   public void update(MemberDTO mdto); //È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+   public void delete(String mem_id);//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+   public List<MemberDTO> selectMember();//È¸ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½È¸
+   public int adminid(AdminDTO adto); //admin login
+   public int adminIdChkPro(String ad_id); //admin idchk
+   public void picUptPro(String mem_id); //í”„ì‚¬ ë³€ê²½
+   public String idsearch(MemberDTO mdto);// id ì°¾ê¸°
 }

@@ -2,18 +2,21 @@ package dao;
 
 import java.util.List;
 
+import dto.AdminDTO;
 import dto.MemberDTO;
 
 public interface MemberDAO {
-   public int login(MemberDTO mdto); //·Î±×ÀÎ Ã³¸®
-   public String MemNameSession(String mem_id); //ÀÌ¸§¼¼¼Ç
-   public String MemPicSession(String mem_id); //»çÁø¼¼¼Ç
-   public void signup(MemberDTO mdto); // È¸¿ø°¡ÀÔ
-   public int memIdChk(String mem_id);// idcheck
-   public MemberDTO MemberPage(String mem_id); //È¸¿øÁ¶È¸
-   public void memUpdate(MemberDTO mdto);  // È¸¿ø¼öÁ¤
-   public void memDelete(String mem_id); //È¸¿øÅ»Åğ
-   public List<MemberDTO> MemSelectAll();/* È¸¿øÀüÃ¼ Á¶È¸*/
-   public int emailchk(MemberDTO mdto);//ÀÌ¸ŞÀÏ Ã¼Å©
-   
+   public int login(MemberDTO mdto); //ë¡œê·¸ì¸
+   public String MemNameSession(String mem_id); //ë„¤ì„ì„¸ì…˜
+   public String MemPicSession(String mem_id); //ì‚¬ì§„ ì„¸ì…˜
+   public void signup(MemberDTO mdto); // íšŒì›ê°€ì…
+   public int memIdChk(String mem_id);// idì¤‘ë³µì²´í¬
+   public MemberDTO MemberPage(String mem_id); //íšŒì›ì •ë³´
+   public void memUpdate(MemberDTO mdto);  // íšŒì›ìˆ˜ì •
+   public void memDelete(String mem_id); //íšŒì›ì‚­ì œ
+   public List<MemberDTO> MemSelectAll();//ì „ì²´íšŒì› ê²€ìƒ‰
+   public int adminchk(AdminDTO adto); //admin chk 
+   public int adminIdChk(String ad_id); //admin idchk
+   public void picUpdate(String mem_id); //í”„ì‚¬ 
+   public String MemIdSearch(MemberDTO mdto); //id ì°¾ê¸°
 } //dd

@@ -1,54 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <link rel="stylesheet" type="text/css" href="css/mypageView.css">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+$(document).ready(function () {
+	$('#picUptBtn').on('click', function(){
+		$('#myModal').modal('show');
+	});
+});
+</script>
 </head>
 <body>
 	<div class="tablebody">
 
-		<form id="list" action="myPage.do">
-			<div class="title">È¸¿ø ÇÁ·ÎÇÊ</div>
-			<table class="type03" style="margin-left: 200px;">
+		<form id="list" action="myPage.do" enctype="multipart/form-data" >
+			<div class="title">íšŒì› í”„ë¡œí•„</div>
+			<table class="type03" style="margin-left: 200px; height:300px;">
 				<tr>
-					<th scope="row">È¸¿ø¾ÆÀÌµğ</th>
+					<th scope="row">íšŒì›ì•„ì´ë””</th>
 					<td class="even">${mdto.mem_id}</td>
 				</tr>
 				<tr>
-					<th scope="row">È¸¿øÀÌ¸§</th>
+					<th scope="row">íšŒì›ì´ë¦„</th>
 					<td class="even">${mdto.mem_name}</td>
 				</tr>
 				<tr>
-					<th scope="row">È¸¿øÀüÈ­¹øÈ£</th>
+					<th scope="row">íšŒì›ì „í™”ë²ˆí˜¸</th>
 					<td>${mdto.mem_phone}</td>
 				</tr>
 				<tr>
-					<th scope="row">È¸¿øÀÌ¸ŞÀÏ</th>
+					<th scope="row">íšŒì›ì´ë©”ì¼</th>
 					<td class="even">${mdto.mem_mail}</td>
+					
 				</tr>
 			</table>
-			<table class="type03">
+				<button class="buttonCst" id="ReviseBtn">íšŒì›ìˆ˜ì •</button>
+				<span style="padding-left: 10px;"></span>
+				<button class="buttonCst" id="DeleteBtn">íšŒì›íƒˆí‡´</button>
+			<table class="type03" style="height:300px;">
 			<tr class=picHeight>
-					<th scope="row">È¸¿ø»çÁø</th>
+					<th scope="row">íšŒì›ì‚¬ì§„</th>
 					<td>
 						<div class="pic_frame">
 							<img src="images/nullImg.jpg" id="null_mem_pic"
-								style="width: 100px; height: 100px; " />
+								style="width: 100px; height: 100px;" />
 							<img src="/userImg/${mdto.mem_pic}" id="mem_pic_box"
-								style="swidth: 100px; height: 100px; display:none; border-radius: 30px;"/>
+								style="width: 100px; height: 100px; display:none; border-radius: 30px;"/>
 						</div>
-					</td>
+						<br />
+						<button type="button" id="picUptBtn"
+							class="buttonCst" value="í”„ë¡œí•„ ì‚¬ì§„ ë³€ê²½" style="width:110px; font-size: medium;">ë³€ê²½</button>
+						</td>
 				</tr>
 			</table>	
-				<button class="buttonCst" id="ReviseBtn">È¸¿ø¼öÁ¤</button>
-				<span style="padding-left: 10px;"></span>
-				<button class="buttonCst" id="DeleteBtn">È¸¿øÅ»Åğ</button>
-			<div id="picvalue" style="display: none;">/userImg/${mdto.mem_pic}</div>
 		</form>
+			<input type= "hidden" id="pic"  value="/userImg/${mdto.mem_pic}"/>
 	</div>
 </body>
 <script type="text/javascript" src="js/mempage.js"></script>
+<jsp:include page="modal.jsp" />
 </html>

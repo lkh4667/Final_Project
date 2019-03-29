@@ -27,8 +27,8 @@ public class JAVA2Mail {
 	}
 
 	/**
-	 * º¹ÇÕ±â Á¤º¸ ±âÁØÀ¸·Î ¸ÞÀÏÀü¼ÛÇÔ!
-	 * @param vo :¸ÞÀÏµ¥ÀÌÅÍ
+	 * ï¿½ï¿½ï¿½Õ±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!
+	 * @param vo :ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @throws Exception
 	 */
 	public void sendMail(JAVA2MailVO vo)throws Exception{
@@ -46,7 +46,7 @@ public class JAVA2Mail {
 		Session mailSession = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("±¸±Û¾ÆÀÌµð", "ºñ¹Ð¹øÈ£"); //³ªÁß¿¡ ±¸±Û °èÁ¤ Àû¾î¾ßÇÔ
+				return new PasswordAuthentication("lkh4667@gmail.com", "dl443525#^"); //ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 			}
 		});
@@ -64,12 +64,12 @@ public class JAVA2Mail {
 	    if(!vo.BCC.trim().equals(""))msg.setRecipients(Message.RecipientType.BCC, setMailDestination(vo.BCC));
 	    msg.setSentDate(new Date());
 	    msg.setSubject(MimeUtility.encodeText(vo.TITLE,"EUC-KR","B"));
-	    //³»¿ë
+	    //ï¿½ï¿½ï¿½ï¿½
 	    BodyPart body = new MimeBodyPart();
 	    body.setContent(vo.BODY, "text/html; charset=EUC-KR");
 	    mp.addBodyPart(body);
 
-	    //Ã·ºÎ
+	    //Ã·ï¿½ï¿½
 	    addFile(mp, vo.FILELIST);
 
 	    msg.setContent(mp);
@@ -86,7 +86,7 @@ public class JAVA2Mail {
 	}
 
 	/**
-	 * ÆÄÀÏÃ·ºÎ
+	 * ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½
 	 * @param mp
 	 * @param path
 	 * @return

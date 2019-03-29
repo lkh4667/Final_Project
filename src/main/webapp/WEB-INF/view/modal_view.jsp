@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -63,7 +64,10 @@ span.subject {
 	margin: auto;
 	margin-top: 40px;
 	margin-bottom: 40px;
+	overflow-y: hidden;
 	height: 100%;
+	
+	
 }
 
 .modal-content {
@@ -143,29 +147,28 @@ body {
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal" role="dialog"
 		aria-labelledby="myFullsizeModalLabel">
-		<div class="modal-dialog" role="document" >
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 
 				<!-- Modal body -->
 				<div class="modal-body" style="margin-top: 20px; margin-left: 30px;">
 					<div class="row box-shadow" style="width: 100%;">
 						<div class="col-md-6" style="padding-left: 0;">
-							<div id="demo" class="carousel slide" data-ride="carousel"
-								style="height: 100%;">
-								<a class="carousel-control-prev" href="#demo" data-slide="prev">
-									<span class="carousel-control-prev-icon"></span>
-								</a> <a class="carousel-control-next" href="#demo" data-slide="next">
-									<span class="carousel-control-next-icon"></span>
-								</a>
+						<div id="demo" class="carousel slide" data-ride="carousel" style="height: 100%;">
+						 <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    					<span class="carousel-control-prev-icon"></span>
+  						</a>
+  						<a class="carousel-control-next" href="#demo" data-slide="next">
+    					<span class="carousel-control-next-icon"></span>
+  						</a>
+  
+								 <ul class="carousel-indicators ul" id="demo-slide" style="width:70%;">
+								  </ul>
 
-								<ul class="carousel-indicators ul" id="demo-slide"
-									style="width: 70%;">
-								</ul>
-
-								<!--  The slideshow -->
-								<div class="carousel-inner img" id="img-slide"
-									style="height: 100%;"></div>
-							</div>
+							  <!--  The slideshow -->
+							  <div class="carousel-inner img" id="img-slide" style="height: 100%;">
+							  </div>
+						</div>
 						</div>
 						<div class="col-md-6">
 							<div class="lib-row lib-header"
@@ -190,12 +193,11 @@ body {
 								</div>
 							</div>
 							<hr />
-							<div class="lib-row lib-desc" style="overflow-y: scroll">
+							<div class="lib-row lib-desc" style="overflow-y: scroll ">
 								<p style="width: 100%; height: 62vh; font-size: 1.5em;">
-									<strong id="bk_content" name="bk_content"
-										style="font-size: 1.5em;">Lorem ipsum dolor Lorem
+									<strong id="bk_content" name="bk_content" style="font-size: 1.5em;">Lorem
 										ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum
-										dolor Lorem ipsum dolor</strong>
+										dolor Lorem ipsum dolor Lorem ipsum dolor</strong>
 								</p>
 							</div>
 
@@ -212,46 +214,12 @@ body {
 								</button>
 							</div>
 						</div>
-						<input type="hidden" id="bk_num" name="bk_num" value="" />
+
 						<!-- Modal footer -->
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 </body>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".btn-success").on('click',function(){
-			var sessionUID = '<%=session.getAttribute("id")%>';
-			if (sessionUID != 'null') {
-				
-				 var bk_num = $("#bk_num").val();
-				
-				$.ajax({
-					type : 'POST',
-					url : 'bkAdd.do',
-					data : 'bk_num=' + bk_num,
-					dataType : 'json',
-
-					success : function(res) {
-						if (res == 0) {
-							alert("추가되었습니다");
-						} else if (res == 1) {
-							alert("로그인해주세요");
-						} else {
-							alert("이미추가되었습니다");
-						}
-
-					}
-				});
-				return false;
-			}else{
-				alert('로그인 해주세요');
-				return false;
-			}
-		});
-	});
-</script>
 </html>

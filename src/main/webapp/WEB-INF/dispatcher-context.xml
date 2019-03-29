@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:tx="http://www.springframework.org/schema/tx"
@@ -173,14 +173,35 @@ class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
       <property name="order" value="2" />
    </bean>
 
-   <!-- interceptor -->
+    <!-- interceptor -->
    <mvc:interceptors>
       <mvc:interceptor>
+         <mvc:mapping path="/myPage.do" />
          <mvc:mapping path="/myPageShift.do" />
+         <mvc:mapping path="/memlist.do" />
+         <mvc:mapping path="/memUpdate.do" />
+         <mvc:mapping path="/picUpdate.do" />
          <mvc:mapping path="/challenge.do" />
-         <mvc:mapping path="/rv_write.do" />
-         
+         <mvc:mapping path="/pwdcheck.do"/>
          <bean class="interceptor.LoginInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+   
+   <!-- admin interceptor -->
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/admin.do"/>
+         <mvc:mapping path="/bkWrite.do"/>
+         <mvc:mapping path="/bkWriteEnd.do"/>
+         <mvc:mapping path="/bk_update.do"/>
+         <mvc:mapping path="/bkUpdateEnd.do"/>
+         <mvc:mapping path="/bk_delete.do"/>
+         <mvc:mapping path="/adminSearch.do"/>
+         <mvc:mapping path="/adminMemPro.do"/>
+         <mvc:mapping path="/admin_member.do"/>
+         <bean class="interceptor.AdminInterceptor" >
+         	      <property name="mservice" ref="mservice" />
+         </bean>
       </mvc:interceptor>
    </mvc:interceptors>
 

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -15,7 +15,7 @@
 <!-- multistep form -->
 </head>
 <body>
-	<form id="list" method="post" action="register.do" enctype="multipart/form-data">
+	<form id="list" enctype="multipart/form-data">
 		<!-- fieldsets -->
 		<fieldset>
 			<h2 class="fs-title">Create your account</h2>
@@ -38,22 +38,20 @@
 			<div class="checkfont" id="phonecheck"></div>
 			<div>
 			<input type="text" name="mem_mail" id="mem_mail" placeholder="Email" />
-			<button id="emailcode" class="submit action-button">인증번호 전송</button><button id="emailcodechk" style="display: none;" class="submit action-button">인증번호 확인</button>
 			<div class="checkfont" id="emailcheck"></div>
 			</div>
 			<div>
-			<input type="text" name="mem_mailcode" id="mem_mailcode" style="width:50%;" placeholder="인증번호입력" />
+			<input type="text" name="mem_mailcode" id="mem_mailcode" style="width:140px;" placeholder="인증번호입력" />
+			<button type="button" id="emailcode" class="submit action-button">인증번호 전송</button><button type="button" id="emailcodechk" style="display: none;" class="submit action-button">인증번호 확인</button>
 			<div class="checkfont" id="emailcodecheck"></div>
-			
 			</div>
-			<input type="file" name="upfile" id="mem_pic" value="프로필사진 첨부" />
-			<img src="images/nullImg.jpg" id="null_mem_pic" style="width: 100px; height: 100px;" />
-			<img src="#" id="mem_pic_box" style="display:none; width: 100px; height: 100px;" />
+			<img src="images/nullImg.jpg" id="null_mem_pic" style="width: 100px; height: 100px; margin-bottom: 20px;" />
+			<img src="#" id="mem_pic_box" style="display:none; width: 100px; height: 100px; margin-bottom: 20px;" />
+			<input type="file" name="file" id="mem_pic" value="프로필사진 첨부" />
 		
-			<input type="button" name="back" class="back action-button"	value="Back" /> 
+			<input type="button" name="back" id="backBtn" class="back action-button" value="Back" /> 
 			<input type="submit" name="submit" id="registerBtn"	class="submit action-button" value="Submit" />
 		</fieldset>
 	</form>
 </body>
-
 </html>

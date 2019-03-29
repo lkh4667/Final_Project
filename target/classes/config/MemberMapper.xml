@@ -48,11 +48,6 @@
    	order by mem_regdate desc
    	</select> 
    	
-   	<!-- 이메일 체크 -->
-   	<select id="memcodechk" parameterType="dto.MemberDTO" resultType="Integer">
-   		select count(*) from member where mem_id=#{mem_id} and mem_code=#{mem_code}
-   	</select>
-   	
    <!-- 회원등록 -->
       <insert id="signup" parameterType="dto.MemberDTO">
          insert into member
@@ -61,7 +56,7 @@
       
       <!-- 회원수정 -->
       <update id="update" parameterType="String">
-      	update member set mem_pw=#{mem_pw}, mem_phone=#{mem_phone}, mem_mail=#{mem_mail}, mem_pic=#{mem_pic,jdbcType=VARCHAR} where mem_id=#{mem_id} 
+      	update member set mem_pw=#{mem_pw}, mem_phone=#{mem_phone} where mem_id=#{mem_id} 
       </update>
    
    <!-- 회원삭제 -->
@@ -69,20 +64,34 @@
    		delete from member where mem_id=#{mem_id}
    	</delete>
 
+	<!-- 관리자login  -->
+	<select id="admin" parameterType="dto.AdminDTO"   resultType="Integer">
+		select count(*) from admin where ad_id=#{ad_id,jdbcType=VARCHAR} and ad_pw=#{ad_pw,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 관리자아이디 체크  -->
+	<select id="adminidcheck" parameterType="String" resultType="Integer">
+		select count(*) from admin where ad_id=#{ad_id,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 메일 변경  -->
+	<update id="mailupdate" parameterType="String">
+		update member set mem_mail=#{mem_mail} where mem_id=#{mem_id}
+	</update>
+	
+	<!-- 사진 변경 -->
+	<update id="picupdate" parameterType="String">
+		update member set mem_pic=#{mem_pic} where mem_id=#{mem_id}
+	</update>
+	
+	<!-- id찾기 -->
+	<select id="idsearch" parameterType="dto.MemberDTO" resultType="String">
+		select mem_id from member where mem_phone=#{mem_phone} and mem_mail=#{mem_mail}
+	</select> 
+	
+	<!-- 비밀번호 찾기-->
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
+	
+	
+	

@@ -4,12 +4,13 @@ package service;
 import java.util.List;
 
 import dao.MemberDAO;
+import dto.AdminDTO;
 import dto.MemberDTO;
 
 public class MemberServiceImp implements MemberService {
 
 	private MemberDAO mdao;
-
+	
 	public MemberServiceImp() {
 	}
 
@@ -63,8 +64,23 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int emailcodechk(MemberDTO mdto) {
-		return mdao.emailchk(mdto);
+	public int adminid(AdminDTO adto) {
+		return mdao.adminchk(adto);
+	}
+
+	@Override
+	public int adminIdChkPro(String ad_id) {
+		return mdao.adminIdChk(ad_id);
+	}
+
+	@Override
+	public void picUptPro(String mem_id) {
+		mdao.picUpdate(mem_id);
+	}
+
+	@Override
+	public String idsearch(MemberDTO mdto) {
+		return mdao.MemIdSearch(mdto);
 	}
 
 }
