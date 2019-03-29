@@ -35,4 +35,16 @@
 		where re_num=#{re_num}
 	</update>
 	
+	<!-- 댓글 갯수 증가 쿼리문 -->
+	<update id="re_Count_Plus" parameterType="int">
+		update review set re_count=re_count+1
+		where rv_num=#{rv_num}
+	</update>
+	
+	<!-- 댓글 갯수 감소 쿼리문 -->
+	<update id="re_Count_Minus" parameterType="int">
+		update review set re_count =re_count-1
+		where rv_num=#{rv_num}
+	</update>
+	
 </mapper>

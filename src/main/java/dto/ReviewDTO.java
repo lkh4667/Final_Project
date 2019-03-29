@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewDTO {
-	private int rv_num, rv_count, rv_state;
-	private String mem_id, rv_title, rv_content;
+	private int rv_num, rv_count, rv_state, re_count;
+	private String mem_id, rv_title, rv_content, rv_group;
 	private Date rv_regdate;
 	private String upload, ip;
 	private MultipartFile filename;
@@ -15,7 +15,7 @@ public class ReviewDTO {
 	private List<Review_picDTO> rv_pic_list;
 	
 	public ReviewDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}// end ReviewDTO()
 
 	public int getRv_num() {
@@ -113,7 +113,22 @@ public class ReviewDTO {
 	public void setRv_pic_list(List<Review_picDTO> rv_pic_list) {
 		this.rv_pic_list = rv_pic_list;
 	}
+
+	public int getRe_count() {
+		return re_count;
+	}
+
+	public void setRe_count(int re_count) {
+		this.re_count = re_count;
+	}
 	
+	public String getRv_group() {
+		return rv_group;
+	}
+	
+	public void setRv_group(String rv_group) {
+		this.rv_group = rv_group;
+	}
 	
 
 }// end class

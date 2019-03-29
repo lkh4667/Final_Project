@@ -178,6 +178,8 @@ class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
       <mvc:interceptor>
          <mvc:mapping path="/myPageShift.do" />
          <mvc:mapping path="/challenge.do" />
+         <mvc:mapping path="/rv_write.do" />
+         
          <bean class="interceptor.LoginInterceptor" />
       </mvc:interceptor>
    </mvc:interceptors>

@@ -16,12 +16,12 @@
 <script type="text/javascript">
 
 var urno='';
+var writer = '${sessionScope.id}';
 
 var update_text = '';
 	$(document).ready(function() {
 		$('#replyAddBtn').on('click', reply_list);
  		$(document).on('click', '.timeline button', reply_update_delete);
- 		
  		$(document).on('click', '#replyUpdateBtn', reply_update_send);
  		$(document).on('click', '#replyUpdateCancel', reply_update_cancel);
 	});
@@ -34,13 +34,13 @@ var update_text = '';
 		var hours = dateObj.getHours();
 		var minutes = dateObj.getMinutes();
 		
-		/* 두자리 숫자로 변환 
+		/*두자리 숫자로 변환  */		
 		month < 10 ? month = '0' + month : month;
 		date < 10 ? date = '0' + date : date;
 		hours < 10 ? hours = '0' + hours : hours;
-		minutes < 10 ? minutes = '0' + minutes : minutes; */
-		
+		minutes < 10 ? minutes = '0' + minutes : minutes; 
 		return year + ". " + month + ". " + date + " " + hours + ":" + minutes;
+		
 	});// registerHelper()
 	
 
@@ -51,39 +51,39 @@ var update_text = '';
 		
 		
 		  $.each(res, function(index, value) {
-			  var html = "";
+			 var html = "";
 			//handlebars를 이용하여 위에 주석과 똑같이 만들어주기
 			 var source = "<div id = 'replyDiv' class='time_sub' id='{{rv_num}}'>"
 					+ "<p>{{mem_id}}&nbsp; &nbsp; " 
 					+ "{{newDate re_regdate}}"
-					+ "<span id = 'btnSpan'><button type='button' id='{{re_num}}' class='updatebtn'>update</button>"
+				if(value.mem_id == writer){
+						source = source + "<span id = 'btnSpan'><button type='button' id='{{re_num}}' class='updatebtn'>update</button>"
 					+ "<button type='button' id='{{re_num}}'>delete</button></span></p>"
-					+ "<p>{{re_content}}</p>";
+					+ "<p>{{re_content}}</p>";	
+					 }
+				else{ 
+						 source = source  + "<p>{{re_content}}</p>";	
+					}	
 					
-					
-		 	html +=	"<div id = 'replyDiv' class='time_up_reply' id='"+value.rv_num+"' style='display: none'>";
-			html +=	 "<table id = 'replyTableUpdate'>";
-			html +=	"<tr><td ><p id = 'replyCancel'><a>"+value.mem_id+"&nbsp;</a>";
-			html +=	 "<a id = 'replyUpdateCancel'>수정 취소</a>";
-			html +=  "</p></td></tr><tr><td>";
-			html +=	"<input type='text' class='form-control' id='upReplyText' value='"+value.re_content+"' />";
-			html +=	"</td><td id ='registerBtn' rowspan = '2'>";
-			html +=	"<div id = 'button_div'>";
-			html +=	"<button type='button' id='replyUpdateBtn'>수 정</button>";
-			html += "</div></td></tr></table></div>";	 
+					html +=	"<div id = 'replyDiv' class='time_up_reply' id='"+value.rv_num+"' style='display: none'>";
+					html +=	 "<table id = 'replyTableUpdate'>";
+					html +=	"<tr><td ><p id = 'replyCancel'><a>"+value.mem_id+"&nbsp;</a>";
+					html +=	 "<a id = 'replyUpdateCancel'>수정 취소</a>";
+					html +=  "</p></td></tr><tr><td>";
+					html +=	"<input type='text' class='form-control' id='upReplyText' value='"+value.re_content+"' />";
+					html +=	"</td><td id ='registerBtn' rowspan = '2'>";
+					html +=	"<div id = 'button_div'>";
+					html +=	"<button type='button' id='replyUpdateBtn'>수 정</button>";
+					html += "</div></td></tr></table></div>";	 
 					
 			var template = Handlebars.compile(source);
 			$('.timeline').append(template(value));
 			$('.timeline').append(html); 
-			$('#ReplyWriter').val('');
 			$('#ReplyText').val('');
-			/* $('.form-control').val(''); */
 		}); 
 	}//end reply_list_result
 
 	function reply_update_send() {
-		 /* $(this).parents().parents().parents().html();
-		  */
 		  
 		 var re_content = $(this).parents().parents().parents().children(':nth-child(1)').children().val();
 		  $.ajax({
@@ -93,8 +93,6 @@ var update_text = '';
 			success : reply_list_result
 		});  
 
-		/* $(document).on('click', '.timeline button', ); */
-// 		$(document).on('click', '#replyUpdateBtn', reply_update_delete);
 		urno = '';
 
 	}// end reply_update_send()
@@ -116,18 +114,11 @@ var update_text = '';
 			
 			var time_up = $(this).parents().parents().parents();
 			update_text = $(time_up).next().children().children(':nth-child(1)').children(':nth-child(2)').children(':nth-child(1)').children(':nth-child(1)').val();
-			/* $(time_up).next().children().children().val(update_text);
-			 */
 		 	$(this).parents('#btnSpan').parents('.time_sub').next().css('display','');
 			$(this).parents('#btnSpan').parents('.time_sub').css('display','none'); 
-		/* 	$('.time_sub').css('display','none');
-			$('.time_up_reply').css('display',"");
-			 */
 			
 			//버튼 비활성화 시켜주기
 			$('.updatebtn').attr('disabled', 'disabled');
-
-			/* $(document).off('click', 'timeline button'); */
 		}
 	}// end reply_update_delete()
 
@@ -157,9 +148,9 @@ var update_text = '';
 				re_content : $('#ReplyText').val()
 				   },
 			success : reply_list_result
-
 		});
 	}// end replay_list()
+	
 </script>
 </head>
 <body>
@@ -192,12 +183,26 @@ var update_text = '';
 
 				<tr>
 					<td id="likeTd">좋아요♡</td>
-					<td id="updateTd">
-						<a href="rv_update.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">수정</a>
-					</td>
-					<td id="delTd">
-						<a href="rv_delete.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">삭제</a>
-					</td>
+					
+					<!-- id세션값으로 받은 뒤 게시글의 수정, 삭제 버튼 나타나게 하기 -->
+					<c:choose>
+						<c:when test="${sessionScope.id== dto.mem_id}">
+							<td id="updateTd">
+								<a href="rv_update.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">수정</a>
+							</td>
+							<td id="delTd">
+								<a href="rv_delete.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">삭제</a>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td id="updateTd">
+								<a href="rv_update.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">&nbsp;</a>
+							</td>
+							<td id="delTd">
+								<a href="rv_delete.do?rv_num=${dto.rv_num}&currentPage=${currentPage}">&nbsp;</a>
+							</td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 
 			</table>
@@ -236,10 +241,23 @@ var update_text = '';
 					
 					<!-- 댓글에 시간 나타내주는 fmt -->
 					<fmt:formatDate pattern="HH:mm " timeStyle="short" value="${replyDTO.re_regdate}" />
+					&nbsp; &nbsp; 
+					
+					<!-- ?????????이게뭐지??????????? -->
+					<!-- <span id = "rep_reply">
+						<a ></a>
+					</span> -->
 					
 					<span id = "btnSpan">
-						<button type = "button" id="${replyDTO.re_num}" class="updatebtn" >update</button>
-						<button type = "button" id="${replyDTO.re_num}">delete</button>
+						<!-- 댓글 입력 전 아이디 값 받고 본인의 글에만 수정, 삭제 뜨게 하는 부분 -->
+						<c:choose>
+							<c:when test="${sessionScope.id==replyDTO.mem_id}">
+							
+								<button type = "button" id="${replyDTO.re_num}" class="updatebtn" >update</button>
+								<button type = "button" id="${replyDTO.re_num}">delete</button>
+							</c:when>
+							<c:otherwise>&nbsp;</c:otherwise>
+						</c:choose>
 					</span>
 					</p>
 					<p>${replyDTO.re_content}</p>
@@ -252,7 +270,7 @@ var update_text = '';
 						<tr>
 							<td >
 								<p id = "replyCancel">
-									<a>${replyDTO.mem_id} &nbsp;</a>
+									<a>${replyDTO.mem_id} &nbsp; </a>
 								<a id = "replyUpdateCancel">수정 취소</a>
 								</p>
 								<%-- <input class="form-control" type="text" placeholder="USER ID" id="newReplyWriter" value = "${replyDTO.mem_id}"> --%>
@@ -279,31 +297,42 @@ var update_text = '';
 		<!-- 댓글 등록하는 부분 -->
 		<div class="box-body">
 				
-				<label for="newReplyWriter">Writer</label>
-				<table id = "replyTable">
-				<tr>
-					<td><input class="form-control" type="text" placeholder="USER ID"  id="ReplyWriter"></td>
-				</tr>
+			<c:choose>
+				<c:when test="${id != null}">
+					<label for="newReplyWriter"></label>
+					<table id = "replyTable">
+						<tr>
+							<td>
+								<input class="form-control"  type="hidden" value="${id}"  id="ReplyWriter">
+							</td>
+						</tr>
 				
-				<tr>
-					<td>
-						<input class="form-control" type="text" placeholder="REPLY TEXT" id="ReplyText">
-					</td>
+						<tr>
+							<td>
+								<input class="form-control" type="text" placeholder="REPLY TEXT" id="ReplyText">
+							</td>
 				
-					<td id ="registerBtn" rowspan = "2">
-						<div id = "button">
-							<button type="button" class="btn btn-primary" id="replyAddBtn">등 록</button>
-						</div>
-					</td>
+							<td id ="registerBtn" rowspan = "2">
+								<div id = "button">
+									<button type="button" class="btn btn-primary" id="replyAddBtn">등 록</button>
+								</div>
+							</td>
 					
-				</tr>
-				</table>
+						</tr>
+					</table>
+				</c:when>
+				<c:otherwise>
+					<table id = "replyTable">
+					</table>
+				</c:otherwise>
+			</c:choose>	
 				
-				<label for="newReplyText">Reply Text</label>
+				<label for="newReplyText"></label>
 				
-			</div>
 		</div>
-	</form>
+	</div>
+</form>
+
 	</div>
 </body>
 </html>

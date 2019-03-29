@@ -11,6 +11,31 @@
 		from review
 	</select>
 	
+	<select id="countPart1" parameterType="dto.ReviewDTO" resultType="int">
+		select count(*)
+		from review 
+		where rv_title like '%' || #{rv_title} || '%'
+		or rv_content like '%' || #{rv_content} || '%'
+	</select>
+	
+	<select id="countPart2" parameterType="dto.ReviewDTO" resultType="int">
+		select count(*)
+		from review where
+		<if test="rv_title != null">
+		rv_title like '%' || #{rv_title} || '%'
+		</if>
+		<if test="rv_content != null">
+		rv_content like '%' || #{rv_content} || '%'
+		</if>
+		<if test="mem_id != null">
+		mem_id like '%' || #{mem_id} || '%'
+		</if>
+		<if test="rv_group != null">
+		rv_group like '%' || #{rv_group} || '%'
+		</if>
+	</select>
+	
+	
 	<resultMap type="dto.ReviewDTO" id="reivew_list_file"
 		autoMapping="false">
 		<result column="rv_num" property="rv_num" />
@@ -20,6 +45,7 @@
 		<result column="rv_content" property="rv_content" />
 		<result column="rv_count" property="rv_count" />
 		<result column="rv_regdate" property="rv_regdate" />
+		<result column="rv_group" property="rv_group" />
 		<collection property="rv_pic_list" javaType="java.util.List"
 			ofType="dto.Review_picDTO" autoMapping="false">
 			<result column="rv" property="rv_num" />
@@ -36,9 +62,9 @@
 		from (select r.*, p.rp_file 
 		from review r, review_pic p
         where r.rv_num = p.rv_num
-        and p.rp_num = 1)a )b
+        and p.rp_num = 1 order by r.rv_num desc)a)b
 		where b.rm>=#{startRow} and b.rm<=#{endRow}
-        order by b.rv_num desc
+        
 	]]>
 	</select>
 	
@@ -57,8 +83,8 @@
 	
 	<!-- 글 등록부분 -->
 	<insert id="save" parameterType="dto.ReviewDTO">
-		insert into review (rv_num, mem_id, rv_title, rv_content, rv_count, rv_regdate)
-		values(review_SEQ.nextval, #{mem_id}, #{rv_title}, #{rv_content}, 0, sysdate)
+		insert into review (rv_num, mem_id, rv_title, rv_content, rv_count, rv_regdate, re_count, rv_group)
+		values(review_SEQ.nextval, #{mem_id}, #{rv_title}, #{rv_content}, 0, sysdate, 0, #{rv_group})
 		<selectKey keyProperty="rv_num" resultType="int" order="AFTER">
 			SELECT MAX(rv_num) FROM review
 		</selectKey>
@@ -84,5 +110,63 @@
 			values(#{rv_num}, #{item.rp_file},#{index}+1 )
 		</foreach>
 	</insert>
+	
+	<!-- 검색검색검색검색검색검색검색검색검색 -->
+	<!-- 제목 + 내용 검색하는 쿼리문 -->
+	<select id="search_titlecontent" parameterType="java.util.HashMap" resultMap="reivew_list_file">
+	<![CDATA[
+		select b.*
+		from (select rownum as rm, a.*
+		from (select r.*, p.rp_file 
+		from review r, review_pic p
+        where r.rv_num = p.rv_num
+        and p.rp_num = 1 order by r.rv_num desc)a )b
+		where b.rm>=#{startRow} and b.rm<=#{endRow}
+		and b.rv_title like '%' || #{rv_title} || '%'
+		or b.rv_content like '%' || #{rv_content} || '%'
+        
+	 ]]>   
+	</select>
+	
+	<!-- 검색 다 모아서 실행해보자 -->
+	<select id="searchElse" parameterType="java.util.HashMap" resultMap="reivew_list_file">
+		select b.*
+		from (select rownum as rm, a.*
+		from (select r.*, p.rp_file 
+		from review r, review_pic p
+        where r.rv_num = p.rv_num
+        and p.rp_num = 1 order by r.rv_num desc)a )b
+		<![CDATA[
+		where b.rm>=#{startRow} and b.rm<=#{endRow}
+		]]>
+		  <if test="rv_title != null">
+	        and b.rv_title like '%' || #{rv_title} || '%'
+        </if>
+		<if test="rv_content != null">
+			and b.rv_content like '%' || #{rv_content} || '%'
+		</if>
+		<if test="mem_id != null">
+			and b.mem_id like '%' || #{mem_id} || '%'
+		</if>   
+		<if test="rv_group != null">
+			and upper(b.rv_group) like '%' || upper(#{rv_group}) || '%'
+		</if>   
+	</select>
 
+	<!-- 그룹별 검색하기 -->	
+	<select id="searchGroup" parameterType="java.util.HashMap" resultMap="reivew_list_file">
+		select b.*
+		from (select rownum as rm, a.*
+		from (select r.*, p.rp_file 
+		from review r, review_pic p
+        where r.rv_num = p.rv_num
+        and p.rp_num = 1 order by r.rv_num desc)a)b
+		<![CDATA[
+		where b.rm>=#{startRow} and b.rm<=#{endRow}
+		]]>
+    	and rv_group = #{rv_group}    
+	</select>
+        
+	
+	
 </mapper>

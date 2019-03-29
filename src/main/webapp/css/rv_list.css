@@ -7,9 +7,28 @@
 /* 페이지 번호까지 포함하는 전체 div 설정 */
 #reviewContent{
 	width:1400px;
-	height:1300px;
-	padding:100px;
+	height:auto;
+	padding:50px;
 	margin:auto;
+	font-size:15px;
+}
+
+/*상단 제목 div*/
+#title{
+	padding-bottom:30px;
+	text-align:center;
+}
+
+/*상단 제목 review부분*/
+#reviewtitle{
+	font-weight:700;
+	font-size:60px;
+}
+
+/*상단 제목 상세내용부분*/
+#reviewsubtitle{
+	font-size:30px;
+	font-weight:lighter;
 }
 
 /* 글쓰기버튼 부분 div */
@@ -22,7 +41,7 @@
 /* 테이블만 포함하는 div설정 */
 #reviewDiv{
 	width:1100px;
-	height:1100px;
+	height:auto;
 	text-align:center;
 	margin-left:auto;
 	margin-right:auto;
@@ -44,7 +63,7 @@ table{
 	
 }
 
-
+/*테이블 정렬*/
 td, tr{
 	margin-left:auto;
 	margin-right:auto;
@@ -52,13 +71,23 @@ td, tr{
 
 }
  
-/* title부분 글씨 굵게해주기 */
+/* title부분 위치조정 */
 #titleTd{
-	font-weight:bold;
 	border-top:2px solid black;
 	border-bottom:1px dotted black;
 	text-align : left;
-	
+}
+
+/*글 제목 옆 분류*/
+#groupA{
+	font-weight:100;
+	color:gray;
+}
+
+/*글 제목*/
+#titlename{
+	color:#696969;
+	font-weight:600;
 }
 
 /* 테이블 작성일부분 정렬 */
@@ -73,38 +102,61 @@ td, tr{
 	border-bottom:3px solid black;
 }
 
+/*아이디 부분*/
 #writerTd{
 	border-top : solid gray 1px;
 	border-bottom : solid gray 1px;
 	text-align : left;
 }
 
+/*좋아요부분*/
 #likeTd{
 	text-align : left;
 	border-bottom : solid 3px black;
 }
 /* 테이블 이미지 부분 크기 조정 */
 #imgTd{
-	width:200px;
+	width:180px;
+	height:180px;
 	border-bottom : solid black 3px;
 
 }
 
+/*이미지 비율에 맞추기*/
+#imgTd img{
+	width:auto;
+	height:auto;
+	max-width: 150px;
+	max-height:150px;
+}
 
-.imgDiv{  
-	padding-top : 10px;
-	padding-bottom : 10px;
-	width : 180px;
-	line-height : 180px;
+/*검색부분*/
+#search{
+	text-align:center;
+}
+
+/*셀렉트박스*/
+#optionbox{
+	width:130px;
+	height:40px;
 
 }
 
-.imgDiv img{  
-	padding : 10px;
-	vertical-align : middle;
+/*검색칸*/
+#searchtext{
+	width:300px;
+	height:40px;
 }
-.bg-orange {background:#d8622b;color:#fff!important;}
+
+/*검색버튼*/
+#searchbox{
+	width : 70px;
+	height: 40px;
+}
+
+/*전체 배경 색상*/
 body{background:#f4f4f4;}
-img{width:100%;max-height:560px;}
-a {color:#696969;}
+
+/*글씨 색상*/
+/* {color:#696969;}*/	
 

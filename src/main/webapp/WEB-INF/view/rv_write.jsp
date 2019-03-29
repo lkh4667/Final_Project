@@ -28,9 +28,29 @@
 	<form name="frm" id="frm" method="post" action="rv_insert.do">
 
 
-		<a href="rv_list.do">목록으로가라</a> <input type="button" id="btnSave"
-			value="저장" />
+		<a href="rv_list.do">목록으로가라</a>
+			<input type="button" id="btnSave" value="저장" />
 		<table id="type4">
+			<tr>
+				<th>분류</th>
+				<td>
+				<input id="name_write" type="hidden" value="${sessionScope.id}" name="mem_id" readonly="readonly"/>
+					<select name='rv_group' id='groupbox'>
+						<!-- 검색 컬럼 -->
+						<option value='TRAVEL'>[ TRAVEL ]</option>
+						<option value='SPORTS'>[ SPORTS ]</option>
+						<option value='FOOD'>[ FOOD ]</option>
+						<option value='NEW SKILL'>[ NEW SKILL ]</option>
+						<option value='CULTURE'>[ CULTURE ]</option>
+						<option value='OUTDOOR'>[ OUTDOOR ]</option>
+						<option value='SHOPPING'>[ SHOPPING ]</option>
+						<option value='LIFESTYLE'>[ LIFESTYLE ]</option>
+					</select>
+					
+					<input type = "button" id = "testBtn" value = "test입니다">
+				</td>
+			</tr>
+			
 			<tr>
 				<th>SUBJECT</th>
 				<td id="type4_td">
@@ -39,10 +59,6 @@
 				<td></td>
 			</tr>
 
-			<tr>
-				<th>NAME</th>
-				<td><input id="name_write" type="text" value="${mem_id}" name="mem_id" /></td>
-			</tr>
 
 			<tr>
 				<!-- <td>내용</td> -->
@@ -55,8 +71,6 @@
 
 				<td id="123"></td>
 				<td></td>
-
-
 
 
 				<!-- <td style="float:right;"><input type="submit" value="글쓰기" id="btn_write"/> -->
@@ -88,6 +102,14 @@ $(document).ready(function () {
 		 
 		  $('#frm').submit();
 	});	
+	
+	$('#testBtn').on('click', function(){
+		alert($('#groupbox').val());
+		alert($('#title_write').val()); 
+		
+		
+	});
+	
 });
 </script>
 </html>

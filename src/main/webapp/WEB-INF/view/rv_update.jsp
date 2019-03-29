@@ -29,6 +29,7 @@ $(document).ready(function () {
 		  $('#frm').submit();
 	});	
 	
+	/* 공백입력시 처리해주는거 */
 /* function check(){
 	var str = document.getElementById('title_write');
 	var blank_pattern =  /[\s]/g;
@@ -52,15 +53,15 @@ $(document).ready(function () {
 		<table id="type4">
 			<tr>
 				<th>SUBJECT</th>
-				<td id="type4_td">
-				<input id="title_write" type="text" name="rv_title" value="${dto.rv_title}" /></td>
-				<td></td>
-				<td></td>
+					<td id="type4_td">
+						<input id="title_write" type="text" name="rv_title" value="${dto.rv_title}" /></td>
+					<td></td>
+					<td></td>
 			</tr>
 
 			<tr>
 				<th>NAME</th>
-				<td><input id="name_write" type="text" value="${dto.mem_id}" name="mem_id" /></td>
+				<td><input id="name_write" type="text" value="${sessionScope.id}" name="mem_id" /></td>
 			</tr>
 
 			<tr>
@@ -76,8 +77,6 @@ $(document).ready(function () {
 				<td></td>
 
 
-
-
 				<!-- <td style="float:right;"><input type="submit" value="글쓰기" id="btn_write"/> -->
 				<!-- <input type="reset" value="취소" id="btn_cancel" onclick="history.back()" /></td> -->
 			</tr>
@@ -88,9 +87,9 @@ $(document).ready(function () {
 
 		<div id="please">
 			<span class="registercheck">
-
-				<span class="cancelcheck"> <a href="rv_list.do" id="btn_list">삭제</a>
-			</span>
+				<span class="cancelcheck">
+					<a href="rv_list.do" id="btn_list">삭제</a>
+				</span>
 			</span>
 		</div>
 

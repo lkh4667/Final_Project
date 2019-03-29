@@ -17,39 +17,84 @@
 			$('.reviewDiv').on('click', function() {
 				alert("클릭입니다");
 			});
-
+			
+			//검색 버튼 누르면 실행하는 이벤트
+			$('#searchbox').on('click', function(){
+				alert("셀렉트박스 : " + $('#optionbox option:selected').val() + " 내용값 :" + $('#searchtext').val());
+				var select = $('#optionbox option:selected').val();
+				var content = $('#searchtext').val();
+				location.href='search.do?selected='+select+'&content='+content;
+			
+				});
 		});
+		
 	</script>
 	
 	<!-- 페이지 번호까지 포함하는 div -->
 	<div id = "reviewContent">
-	
-		<div id = "reviewWrite">
-			<a href = "rv_write.do">글쓰기기기</a>
-		
+		<div id = "title">
+		<a id = 'reviewtitle'>R E V I E W<br/></a> 
+		<a id = 'reviewsubtitle'>버킷리스트 후기를 공유합니다</a>
 		</div>
+		
+		<div>
+			<a href = "rv_list.do">전체</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a href = "searchGroup.do?rv_group=">TRAVEL</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>SPORTS</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>FOOD</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>NEW SKILL</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>CULTURE</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>OUTDOOR</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>SHOPPING</a>
+			<a>&nbsp; | &nbsp;</a>
+			<a>LIFESTYLE</a>
+		</div>
+		
+		<!-- 로그인을 하지 않으면 글쓰기 버튼이 보이지 않게 하기 -->
+		<c:if test="${sessionScope.id!=null }">
+			<div id = "reviewWrite">
+				<a href = "rv_write.do">글쓰기기기</a>
+			</div>
+		</c:if>
 	
 		<!-- 테이블까지만 포함하는 div -->
-		<div id = "reviewDiv">
+	<div id = "reviewDiv">
 		
-			<table>
-				<tbody id = "tbody1">
+		<table>
+			<tbody id = "tbody1">
 				<c:forEach var="dto" items="${aList}">
 					<tr>
 						<td id = "imgTd" rowspan="3" >
 							<div class="imgDiv" >
 							<c:forEach var="pic" items="${dto.rv_pic_list}">
 								<img src="/reviewImg/${pic.rp_file}"/>
-							</c:forEach>	
+							</c:forEach>
 							</div>
 						</td>
-						<td id="titleTd" colspan="2"><a href = "rv_view.do?rv_num=${dto.rv_num}&currentPage=${pv.currentPage}">제목 : ${dto.rv_title}</a>
-						<small id='replycntSmall'> [ ${fn:length(re_list)} ] </small></td>
-						<td id = "dateTd"> <fmt:formatDate pattern="yyyy. MM. dd" dateStyle="short" value="${dto.rv_regdate}"/></td>
+						<td id="titleTd" colspan="2">
+						
+						<a id = "groupA">[ ${dto.rv_group} ]</a>
+							<a href = "rv_view.do?rv_num=${dto.rv_num}&currentPage=${pv.currentPage}" id="titlename"> ${dto.rv_title}</a>
+						
+						<!-- 제목 옆에 댓글갯수 표현하기 -->
+								<c:if test="${dto.re_count>0}">
+									<small id='replycntSmall'> &nbsp; [ ${dto.re_count} ] </small>
+								</c:if>
+						</td>
+						<td id = "dateTd">
+							<fmt:formatDate pattern="yyyy. MM. dd" dateStyle="short" value="${dto.rv_regdate}"/>
+						</td>
 					</tr>
 					
 					<tr>
-						<td id="writerTd" colspan="3">글쓴이 : ${dto.mem_id}</td>
+						<td id="writerTd" colspan="3">${dto.mem_id}</td>
 					</tr>
 					
 					
@@ -59,32 +104,34 @@
 						<td id = "countTd">조회수 : ${dto.rv_count}</td>
 					</tr>
 					
-					</c:forEach>
-				</tbody>
-			</table>
+				</c:forEach>
+			</tbody>
+		</table>
+		
+	
+		<!-- 게시글 아래 검색하는 곳 부분 -->	
 			
-			<div class='searchbar'>
+		<div class='searchbar'>
 			<form name='frm' method='GET' action='rv_list.do'>
 				<div id='search' >
 					<select name='col' id='optionbox'>
 						<!-- 검색 컬럼 -->
-						<option value='none'>전체 목록</option>
-						<option value='mem_id'>이름</option>
+						<option value='rv_title_content'>제목+내용</option>
 						<option value='rv_title'>제목</option>
 						<option value='rv_content'>내용</option>
-						<option value='rv_title_content'>제목+내용</option>
+						<option value='mem_id'>아이디</option>
+						<option value='rv_group'>분류</option>
 					</select>
 					
 						<input id="searchtext" type='text' name='word' value='' placeholder="내용 입력">
-						<input id="searchbox" type="image" value = "검색">
-						<a>검색</a>
+						<input id="searchbox" type='button' value = "검색">
 				</div>
 			</form>
-		</div>
-			
-		</div>
 		
-		<div id="pageList" style="text-align: center">
+	
+		
+	<!-- 페이징처리 -->	
+	<div id="pageList" style="text-align: center">
 			<!-- 이전 처리 -->
 			<!-- 이전으로 이동할 것이 있을 경우에만 이전이 뜨도록 -->
 			<!-- 이전 4 5 6 / 이전을 누르면 1 2 3이 보이도록, 누르면 가장 첫번째 것이 선택이 되도록 -->
@@ -102,7 +149,9 @@
 			<c:forEach var="i" begin="${pv.startPage}" end="${pv.endPage}">
 				<span> <c:url var="currPage" value="rv_list.do">
 						<c:param name="currentPage" value="${i}" />
-					</c:url> <c:choose>
+					</c:url> 
+					
+					<c:choose>
 						<c:when test="${i==pv.currentPage}">
 							<a href="${currPage}" class="pagecolor"> <c:out value="${i}" /></a>
 						</c:when>
@@ -122,12 +171,12 @@
 			<c:if test="${pv.totalPage>pv.endPage}">
 				<a href="rv_list.do?currentPage=${pv.startPage+pv.blockPage}">다음</a>
 			</c:if>
+			
 		</div>
-		
+		</div>
 	</div>
 	
-	
-
+</div>
 	
 </body>
 </html>

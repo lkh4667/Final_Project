@@ -38,28 +38,28 @@
 			value="/WEB-INF/view/template/footer.jsp" />
 	</definition>
 
-<definition name="rv_list" extends="bk_main">
+<definition name="rv_list" extends="bk_sub">
 		<put-attribute name="title"
 			value="Spring Review_List Example" />
 		<put-attribute name="body"
 			value="/WEB-INF/view/rv_list.jsp" />
 	</definition>
 
-	<definition name="rv_view" extends="bk_main">
+	<definition name="rv_view" extends="bk_sub">
 		<put-attribute name="title"
 			value="Spring Review_View Example" />
 		<put-attribute name="body"
 			value="/WEB-INF/view/rv_view.jsp" />
 	</definition>
 
-	<definition name="rv_write" extends="bk_main">
+	<definition name="rv_write" extends="bk_sub">
 		<put-attribute name="title"
 			value="Spring Review_Write Example" />
 		<put-attribute name="body"
 			value="/WEB-INF/view/rv_write.jsp" />
 	</definition>
 	
-	<definition name="rv_update" extends="bk_main">
+	<definition name="rv_update" extends="bk_sub">
 		<put-attribute name="title" value="Spring Review_Update Example" />
 		<put-attribute name="body"
 			value="/WEB-INF/view/rv_update.jsp" />

@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,4 +23,19 @@ public interface ReviewService {
 	public List<ReplyDTO> replyDeleteProcess(ReplyDTO rdto);
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto);
 	public void rvPicInsertProcess(ReviewDTO dto);
+	public List<ReviewDTO> searchProcess(HashMap<String, Object> map);
+	
+	/*검색 -> 제목 + 내용 갯수*/
+	public int searchCountProcess(ReviewDTO dto);
+	
+	/*검색 -> 나머지 갯수*/
+	public int searchCountElseProcess(ReviewDTO dto);
+	
+	
+	public List<ReviewDTO> searchTitleContentProcess(HashMap<String, Object> map);
+	
+	public List<ReviewDTO> searchElseProcess(HashMap<String, Object> map);
+	
+	public List<ReviewDTO> searchGroupProcess(HashMap<String, Object> map);
+	
 }// end interface

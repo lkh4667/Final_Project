@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +38,7 @@ public class BoardPageController {
 	private PageDTO pdto;
 	private int currentPage;
 	private List<String> arr = new ArrayList<String>();
+	
 	public BoardPageController() {
 		
 	}// end BoardPageController()
@@ -59,8 +62,8 @@ public class BoardPageController {
 	@RequestMapping("/rv_list.do")
 	public ModelAndView process(PageDTO pv) {
 		ModelAndView mav = new ModelAndView();
-	   int totalRecord = service.countProcess();
-		
+				
+		int totalRecord = service.countProcess();
 		if (totalRecord >= 1) {
 			if (pv.getCurrentPage() == 0) {
 				currentPage = 1;
@@ -70,6 +73,10 @@ public class BoardPageController {
 			pdto = new PageDTO(currentPage, totalRecord);
 			mav.addObject("pv",pdto);
 			mav.addObject("aList", service.listProcess(pdto));
+		}
+		List<ReviewDTO> alist =  service.listProcess(pdto);
+		for (ReviewDTO rdto : alist) {
+			System.out.println(rdto.getRe_count());
 		}
 		mav.setViewName("rv_list");
 		return mav;
@@ -94,7 +101,7 @@ public class BoardPageController {
 		mav.addObject("dto",dto);
 		mav.setViewName("rv_write");
 		return mav;
-}// end writeProcess()*/
+	}// end writeProcess()*/
 		
 	@RequestMapping(value = "/rv_writeEnd.do", method = {RequestMethod.POST, RequestMethod.GET})
 	// 파일과 ip주소를 받아오려고 HttpServletRequest를 받아온다
@@ -104,31 +111,6 @@ public class BoardPageController {
 		for (String str : arr) {
 			System.out.println(str);
 		}
-		/*MultipartFile file = dto.getFilename();
-		if (!file.isEmpty()) {
-			String fileName = file.getOriginalFilename();
-			
-				// 중복파일명을 처리하기 위해 난수 발생
-			UUID random = UUID.randomUUID();
-			String root = request.getSession().getServletContext().getRealPath("/");
-			
-				// root+"temp/"
-			String saveDirectory = root + "temp" + File.separator;
-			
-				// 실제 파일 경로 지정
-			File fe = new File(saveDirectory);
-			if (!fe.exists())
-				fe.mkdir();
-				File ff = new File(saveDirectory, random + "_" + fileName);
-			try {
-				FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			dto.setUpload(random + "_" + fileName);
-		}
-			dto.setIp(request.getRemoteAddr());
-		*/	
 		service.insertProcess(dto);
 		return "redirect:/rv_list.do";
 		}// end writeProMethod()
@@ -138,15 +120,7 @@ public class BoardPageController {
 	@RequestMapping("/rv_insert.do")
 	public ModelAndView insertProcess(ReviewDTO dto) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("rv_insert start !!!!!!!!!!!");
-		System.out.println("파일 리스트 !!");
-		System.out.println(dto.getMem_id());
-		System.out.println(dto.getRv_title());
-		System.out.println(dto.getRv_content());
-		System.out.println("rv_insert 리스트 사이즈==================> " + arr.size());
-
 		service.insertProcess(dto);
-		System.out.println("맥스 rv_num=========> " + dto.getRv_num());
 		List<Review_picDTO> alist = new ArrayList<Review_picDTO>();
 		if (arr != null) {
 			for (String str : arr) {
@@ -161,34 +135,33 @@ public class BoardPageController {
 		arr.clear();
 		mav.setViewName("redirect:/rv_list.do");
 		return mav;
-	}
+	}// end insertProcess()
 	
 	@RequestMapping("/replyInsetList.do")
 	public @ResponseBody List<ReplyDTO> replyListPage(ReplyDTO rdto){
 		// 글번호, 댓글 작성자, 댓글 내용 =>
-		service.replyInsertProcess(rdto);
 		int cnt = rdto.getRv_num();
+		service.replyInsertProcess(rdto);
 		return service.replyListProcess(cnt);
 	}//end replyListPage()
 	
 	@RequestMapping(value="/replyDelete.do", method=RequestMethod.GET )
 	public @ResponseBody List<ReplyDTO> replyDeleteListPage(ReplyDTO rdto){		
-	  System.out.println("replydelete start !!!");
-	  System.out.println("rv_num()=========> " + rdto.getRv_num());
-	  System.out.println("리스트 사이즈=================> " + service.replyListProcess(rdto.getRv_num()).size());
+		System.out.println("replydelete start !!!");
+		System.out.println("rv_num()=========> " + rdto.getRv_num());
+		System.out.println("리스트 사이즈=================> " + service.replyListProcess(rdto.getRv_num()).size());
 	   service.replyDeleteProcess(rdto);
-		return service.replyListProcess(rdto.getRv_num());
+	   return service.replyListProcess(rdto.getRv_num());
 	}// end replyDeleteListPage()
 	
 	@RequestMapping("/replyUpdate.do")
 	public @ResponseBody List<ReplyDTO> replyUpdateListPage	(ReplyDTO rdto){
-		  System.out.println("replyUpdate start !!!");
-		  System.out.println("rv_num()=========> " + rdto.getRv_num());
-		  System.out.println("리스트 사이즈=================> " + service.replyListProcess(rdto.getRv_num()).size());
+		System.out.println("replyUpdate start !!!");
+		System.out.println("rv_num()=========> " + rdto.getRv_num());
+		System.out.println("리스트 사이즈=================> " + service.replyListProcess(rdto.getRv_num()).size());
 		service.replyUpdateProcess(rdto);
 		return service.replyListProcess(rdto.getRv_num());
-		
-	}
+	}//end replyUpdateListPage()
 	
 	
 	
@@ -196,7 +169,6 @@ public class BoardPageController {
 		@RequestMapping(value = "/rv_update.do", method = RequestMethod.GET)
 		public ModelAndView updateMethod(int rv_num, int currentPage) {
 			ModelAndView mav = new ModelAndView();
-			// BoardDTO bbto = service.updateSelectProcess(num);
 			mav.addObject("dto", service.updateSelectProcess(rv_num));
 			mav.addObject("currentPage", currentPage);
 			mav.setViewName("rv_update");
@@ -231,8 +203,7 @@ public class BoardPageController {
 		}// end deleteProcess
 	
 		 // 다중파일업로드
-	    @RequestMapping(value = "/file_uploader_html5.do",
-	                  method = RequestMethod.POST)
+	    @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
 	    @ResponseBody
 	    public String multiplePhotoUpload(HttpServletRequest request) {
 	        // 파일정보
@@ -269,5 +240,84 @@ public class BoardPageController {
 	            e.printStackTrace();
 	        }
 	        return sb.toString();
+	        
+	    }// end multiplePhotoUpload()
+	    
+	    @RequestMapping("/search.do")
+	    public ModelAndView search(PageDTO pv, HttpServletRequest req){
+	    	ModelAndView mav = new ModelAndView();
+	    	String selected = req.getParameter("selected");
+	    	String content = req.getParameter("content");
+	    	
+	    	System.out.println("search.do start !!!!!!!!!!");
+	    	System.out.println("선택한 분류값==========> " + selected);
+	    	System.out.println("검색할 내용==========> " + content);
+	    	int totalRecord = 0;
+	    	ReviewDTO rdto = new ReviewDTO();
+	    	if (selected.equals("rv_title_content")) { // 제목 + 내용
+				rdto.setRv_title(content);
+				rdto.setRv_content(content);
+				totalRecord = service.searchCountProcess(rdto);
+			}else if(selected.equals("rv_title")) { // 제목 
+				rdto.setRv_title(content);
+				totalRecord = service.searchCountElseProcess(rdto);
+			}else if(selected.equals("rv_content")) {
+				rdto.setRv_content(content);
+				totalRecord = service.searchCountElseProcess(rdto);
+			}else if(selected.equals("mem_id")) { // 아이디면 
+				rdto.setMem_id(content);
+				totalRecord = service.searchCountElseProcess(rdto);
+			}else if(selected.equals("rv_group")) { // 분류 
+				System.out.println("dddd");
+				rdto.setRv_group(content);
+				totalRecord = service.searchCountElseProcess(rdto);
+			}
+	    	System.out.println("totalRecord============> " + totalRecord);
+	    	
+			if (totalRecord >= 1) {
+				if (pv.getCurrentPage() == 0) {
+					currentPage = 1;
+				} else {
+					currentPage = pv.getCurrentPage();
+				}
+				pdto = new PageDTO(currentPage, totalRecord);
+				mav.addObject("pv",pdto);
+				HashMap<String, Object> map = new HashMap<>();
+				map.put("startRow", pdto.getStartRow());
+				map.put("endRow", pdto.getEndRow());
+				
+		    	if (selected.equals("rv_title_content")) { // 제목 + 내용
+					map.put("rv_title", rdto.getRv_title());
+					map.put("rv_content", rdto.getRv_content());
+					mav.addObject("aList", service.searchTitleContentProcess(map));
+				}else if(selected.equals("rv_title")) { // 제목 
+					map.put("rv_title", rdto.getRv_title());
+					mav.addObject("aList", service.searchElseProcess(map));
+				}else if(selected.equals("rv_content")) {
+					map.put("rv_content", rdto.getRv_content());
+					mav.addObject("aList", service.searchElseProcess(map));
+				}else if(selected.equals("mem_id")) { // 아이디면 
+					map.put("mem_id", rdto.getMem_id());
+					mav.addObject("aList", service.searchElseProcess(map));
+				}else if(selected.equals("rv_group")) { // 분류 
+					map.put("rv_group", rdto.getRv_group());
+					mav.addObject("aList", service.searchElseProcess(map));
+				}
+				
+				
+			}
+			mav.setViewName("rv_list");
+			
+	    	return mav;
 	    }
+	    
+	    /*@RequestMapping("/searchGroup.do")
+	    public ModelAndView searchGroupListProcess(HttpServletRequest req) {
+	    	ModelAndView mav = new ModelAndView();
+	    	String rv_group = req.getParameter("rv_group");
+	    	
+	    	
+	    	return mav;
+	    }*/
+	    
 }// end BoardPageController
